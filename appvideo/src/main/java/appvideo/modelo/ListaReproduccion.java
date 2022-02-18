@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 
 public class ListaReproduccion {
 
+	private int codigo;
+
 	// ATRIBUTOS:
 	private String nombre;
 	private ArrayList<Video> videos;
@@ -17,6 +19,14 @@ public class ListaReproduccion {
 	}
 
 	// METODOS:
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -29,7 +39,8 @@ public class ListaReproduccion {
 		videos.add(video);
 	}
 
-	public String toJson() {
+	@Override
+	public String toString() {
 		return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }

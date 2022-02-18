@@ -10,6 +10,8 @@ public class Usuario {
 
 	private static final int MAX_NUM_VIDEOS_RECIENTES = 5;
 
+	private int codigo;
+
 	// ATRIBUTOS:
 	private String nombre;
 	private String apellidos;
@@ -38,6 +40,14 @@ public class Usuario {
 	}
 
 	// METODOS:
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -119,7 +129,8 @@ public class Usuario {
 			videosRecientes.remove(MAX_NUM_VIDEOS_RECIENTES);
 	}
 
-	public String toJson() {
+	@Override
+	public String toString() {
 		return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }

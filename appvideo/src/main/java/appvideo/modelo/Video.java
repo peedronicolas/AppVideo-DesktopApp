@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 
 public class Video {
 
+	private int codigo;
+
 	// ATRIBUTOS:
 	private String titulo;
 	private String URL;
@@ -14,15 +16,29 @@ public class Video {
 	private LinkedList<Etiqueta> etiquetas;
 
 	// CONSTRUCTOR:
+	public Video(String titulo, String URL) {
+		this.titulo = titulo;
+		this.URL = URL;
+		this.numReproducciones = 0;
+		this.etiquetas = new LinkedList<>();
+	}
+
 	public Video(String titulo, String URL, int numReproducciones) {
 		this.titulo = titulo;
 		this.URL = URL;
 		this.numReproducciones = numReproducciones;
-
 		this.etiquetas = new LinkedList<>();
 	}
 
 	// METODOS:
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -35,19 +51,20 @@ public class Video {
 		return numReproducciones;
 	}
 
-	public LinkedList<Etiqueta> getEtiquetas() {
-		return etiquetas;
-	}
-
-	public void addEtiqueta(String nombreEtiqueta) {
-		etiquetas.add(new Etiqueta(nombreEtiqueta.toUpperCase()));
-	}
-
 	public void incrementarNumReproducciones() {
 		numReproducciones++;
 	}
 
-	public String toJson() {
+	public LinkedList<Etiqueta> getEtiquetas() {
+		return etiquetas;
+	}
+
+	public void addEtiqueta(Etiqueta etiqueta) {
+		etiquetas.add(etiqueta);
+	}
+
+	@Override
+	public String toString() {
 		return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }
