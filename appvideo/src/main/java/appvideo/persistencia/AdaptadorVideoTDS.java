@@ -121,7 +121,7 @@ public class AdaptadorVideoTDS implements IAdaptadorVideoDAO {
 				Integer.parseInt(servPersistencia.recuperarPropiedadEntidad(ev, "numReproducciones")));
 		video.setCodigo(codigo);
 
-		// IMPORTANTE: Añadir la venta al pool antes de llamar a otros adaptadores
+		// IMPORTANTE: Añadir el video a la pool antes de llamar a otros adaptadores
 		PoolDAO.getUnicaInstancia().addObjeto(codigo, video);
 
 		// Recuperar propiedades que son objetos llamando a adaptadores

@@ -1,11 +1,12 @@
 package appvideo.lanzador;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-import appvideo.modelo.CatalogoVideos;
 import appvideo.modelo.Etiqueta;
+import appvideo.modelo.ListaReproduccion;
+import appvideo.modelo.Usuario;
 import appvideo.modelo.Video;
-import appvideo.persistencia.AdaptadorVideoTDS;
 
 public class Lanzador {
 
@@ -18,17 +19,16 @@ public class Lanzador {
 		Video v2 = new Video("Pruebas de mar corbeta AL-JUBAIL", "https://www.youtube.com/watch?v=bhdbbWTErpE");
 		v2.addEtiqueta(new Etiqueta("navantia"));
 
-		/*
-		 * Usuario u1 = new Usuario("Pedro", "Nicolas Gomariz", new
-		 * SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"), "pedro.nicolasg@um.es",
-		 * "peedronicolas", "123", false);
-		 */
+		ListaReproduccion lr = new ListaReproduccion("Navantia");
+		lr.addVideo(v2);
+		lr.addVideo(v1);
 
-		AdaptadorVideoTDS av = AdaptadorVideoTDS.getUnicaInstancia();
-		av.registrarVideo(v1);
-		av.registrarVideo(v2);
+		Usuario u = new Usuario("Pedro", "Nicolas Gomariz", new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"),
+				"pedro.nicolasg@um.es", "peedronicolas", "123", false);
 
-		CatalogoVideos cv = new CatalogoVideos();
-		System.out.println(cv.getVideos());
+		u.addListaReproudccion(lr);
+		u.addVideoReciente(v2);
+
+		System.out.println(u.toString());
 	}
 }

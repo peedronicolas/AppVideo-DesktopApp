@@ -80,17 +80,8 @@ public class Usuario {
 		return listasReproduccion;
 	}
 
-	public ListaReproduccion createAddListaReproduccion(String nombre) {
-
-		// Comprobamos si ya existe la lista de reproduccion, en ese caso la devolvemos
-		for (ListaReproduccion lr : listasReproduccion)
-			if (lr.getNombre().equals(nombre))
-				return lr;
-
-		// Si no exixste la creamos, la añadimos a la lista y la devolvemos
-		ListaReproduccion lr = new ListaReproduccion(nombre);
-		listasReproduccion.add(lr);
-		return lr;
+	public void addListaReproudccion(ListaReproduccion listaReproduccion) {
+		listasReproduccion.add(listaReproduccion);
 	}
 
 	public boolean removeListaReproduccion(ListaReproduccion lr) {
@@ -127,6 +118,14 @@ public class Usuario {
 		// Al introducir un video nuevo eliminamos el ultimo de la lista
 		if (videosRecientes.size() >= MAX_NUM_VIDEOS_RECIENTES + 1)
 			videosRecientes.remove(MAX_NUM_VIDEOS_RECIENTES);
+	}
+
+	public LinkedList<Video> getVideosRecientes() {
+		return videosRecientes;
+	}
+
+	public Boolean getIsPremium() {
+		return isPremium;
 	}
 
 	@Override
