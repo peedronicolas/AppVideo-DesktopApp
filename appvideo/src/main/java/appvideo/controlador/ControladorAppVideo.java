@@ -1,8 +1,14 @@
 package appvideo.controlador;
 
+import java.util.Date;
+import java.util.List;
+
 import appvideo.modelo.CatalogoUsuarios;
 import appvideo.modelo.CatalogoVideos;
+import appvideo.modelo.Etiqueta;
+import appvideo.modelo.ListaReproduccion;
 import appvideo.modelo.Usuario;
+import appvideo.modelo.Video;
 import appvideo.persistencia.DAOException;
 import appvideo.persistencia.FactoriaDAO;
 import appvideo.persistencia.IAdaptadorEtiquetaDAO;
@@ -55,5 +61,100 @@ public class ControladorAppVideo {
 	private void inicializarCatalogos() {
 		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
 		catalogoVideos = CatalogoVideos.getUnicaInstancia();
+	}
+
+	public boolean registrarusuario(String nombre, String apellidos, Date fNacimiento, String email, String username,
+			String password) {
+
+		// Comprobamos si ya hay un usuario con este 'username', en ese caso no se
+		// registra
+		if (catalogoUsuarios.getUsuario(username) != null)
+			return false;
+
+		// Creamos el usuario, lo registramos y lo añadimos al catalogo
+		Usuario usuario = new Usuario(nombre, apellidos, fNacimiento, email, username, password, false);
+		adaptadorUsuario.registrarUsuario(usuario);
+		catalogoUsuarios.addUsuario(usuario);
+
+		return true;
+	}
+
+	public boolean login(String username, String password) {
+
+		// Extraemos el usuario del catalogo si existe, null en caso contrario
+		Usuario usuario = catalogoUsuarios.getUsuario(username);
+
+		if (usuario != null && usuario.getPassword().equals(password)) {
+			this.usuarioActual = usuario;
+			return true;
+		}
+
+		return false;
+	}
+
+	public void logout() {
+		adaptadorUsuario.modificarUsuario(usuarioActual);
+		this.usuarioActual = null;
+	}
+
+	public Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+	public ListaReproduccion crearListaReproduccion(String nombre) {
+		ListaReproduccion lr = usuarioActual.crearListaReproduccion(nombre);
+		adaptadorListaReproduccion.registrarListaReproduccion(lr);
+		adaptadorUsuario.modificarUsuario(usuarioActual);
+		return lr;
+	}
+
+	public boolean eliminarListaReproduccion(ListaReproduccion listaReproduccion) {
+
+		if (usuarioActual.removeListaReproduccion(listaReproduccion)) {
+			adaptadorListaReproduccion.borrarListaReproduccion(listaReproduccion);
+			adaptadorUsuario.modificarUsuario(usuarioActual);
+			return true;
+		}
+
+		return false;
+	}
+
+	public void addVideoToList(ListaReproduccion listaReproduccion, Video video) {
+		usuarioActual.addVideoToList(listaReproduccion, video);
+		adaptadorListaReproduccion.modificarListaReproduccion(listaReproduccion);
+	}
+
+	public List<ListaReproduccion> getAllListasReproduccion() {
+		return usuarioActual.getListasReproduccion();
+	}
+
+	public ListaReproduccion getListaReproduccion(String nombre) {
+		return usuarioActual.getListaReproduccion(nombre);
+	}
+
+	public List<Video> getVideoRecientes() {
+		return usuarioActual.getVideosRecientes();
+	}
+
+	public void addVideoReciente(Video video) {
+		usuarioActual.addVideoReciente(video);
+		adaptadorUsuario.modificarUsuario(usuarioActual);
+	}
+
+	public void registrarNuevoVideo(Video video) {
+		catalogoVideos.addVideo(video);
+		adaptadorVideo.registrarVideo(video);
+	}
+
+	public List<Video> getAllVideo() {
+		return catalogoVideos.getVideos();
+	}
+
+	public Video getVideo(String titulo) {
+		return catalogoVideos.getVideo(titulo);
+	}
+
+	public List<Etiqueta> getAllEtiquetas() {
+		return adaptadorEtiqueta.recuperarTodasEtiquetas();
 	}
 }

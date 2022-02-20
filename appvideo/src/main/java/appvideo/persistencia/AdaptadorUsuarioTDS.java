@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -223,7 +222,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		return videos;
 	}
 
-	private String obtenerCodigosListasReproduccion(HashSet<ListaReproduccion> listasReproduccion) {
+	private String obtenerCodigosListasReproduccion(List<ListaReproduccion> listasReproduccion) {
 		String strListasReproduccion = "";
 
 		for (ListaReproduccion lr : listasReproduccion)

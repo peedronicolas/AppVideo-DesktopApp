@@ -1,11 +1,10 @@
 package appvideo.lanzador;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
+import appvideo.controlador.ControladorAppVideo;
 import appvideo.modelo.Etiqueta;
 import appvideo.modelo.ListaReproduccion;
-import appvideo.modelo.Usuario;
 import appvideo.modelo.Video;
 
 public class Lanzador {
@@ -23,12 +22,11 @@ public class Lanzador {
 		lr.addVideo(v2);
 		lr.addVideo(v1);
 
-		Usuario u = new Usuario("Pedro", "Nicolas Gomariz", new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"),
-				"pedro.nicolasg@um.es", "peedronicolas", "123", false);
+		ControladorAppVideo c = new ControladorAppVideo();
+//		c.registrarusuario("Pedro", "Nicolas Gomariz", new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"),
+//				"pedro.nicolasg@um.es", "peedronicolas", "123");
 
-		u.addListaReproudccion(lr);
-		u.addVideoReciente(v2);
-
-		System.out.println(u.toString());
+		System.out.println(c.login("peedronicolas", "123"));
+		System.out.println(c.getUsuarioActual());
 	}
 }

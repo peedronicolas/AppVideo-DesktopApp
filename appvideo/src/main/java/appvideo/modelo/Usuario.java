@@ -1,8 +1,8 @@
 package appvideo.modelo;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
@@ -21,7 +21,7 @@ public class Usuario {
 	private String password;
 	private Boolean isPremium = false;
 
-	private HashSet<ListaReproduccion> listasReproduccion;
+	private LinkedList<ListaReproduccion> listasReproduccion;
 	private LinkedList<Video> videosRecientes;
 
 	// CONSTRUCTOR:
@@ -35,7 +35,7 @@ public class Usuario {
 		this.password = password;
 		this.isPremium = isPremium;
 
-		this.listasReproduccion = new HashSet<ListaReproduccion>();
+		this.listasReproduccion = new LinkedList<>();
 		this.videosRecientes = new LinkedList<>();
 	}
 
@@ -76,8 +76,28 @@ public class Usuario {
 		return isPremium;
 	}
 
-	public HashSet<ListaReproduccion> getListasReproduccion() {
+	public List<ListaReproduccion> getListasReproduccion() {
 		return listasReproduccion;
+	}
+
+	public ListaReproduccion getListaReproduccion(String nombre) {
+
+		for (ListaReproduccion lr : listasReproduccion)
+			if (lr.getNombre().equals(nombre))
+				return lr;
+
+		return null;
+	}
+
+	public ListaReproduccion crearListaReproduccion(String nombre) {
+
+		for (ListaReproduccion lr : listasReproduccion)
+			if (lr.getNombre().equals(nombre))
+				return lr;
+
+		ListaReproduccion l = new ListaReproduccion(nombre);
+		listasReproduccion.add(l);
+		return l;
 	}
 
 	public void addListaReproudccion(ListaReproduccion listaReproduccion) {
@@ -120,7 +140,7 @@ public class Usuario {
 			videosRecientes.remove(MAX_NUM_VIDEOS_RECIENTES);
 	}
 
-	public LinkedList<Video> getVideosRecientes() {
+	public List<Video> getVideosRecientes() {
 		return videosRecientes;
 	}
 
