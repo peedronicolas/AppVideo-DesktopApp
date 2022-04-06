@@ -32,7 +32,7 @@ public class ControladorAppVideo {
 	private Usuario usuarioActual;
 
 	// CONSTRUCTOR:
-	public ControladorAppVideo() {
+	private ControladorAppVideo() {
 		inicializarAdaptadores(); // debe ser la primera linea para evitar error de sincronización
 		inicializarCatalogos();
 	}
@@ -68,14 +68,17 @@ public class ControladorAppVideo {
 
 		// Comprobamos si ya hay un usuario con este 'username', en ese caso no se
 		// registra
-		if (catalogoUsuarios.getUsuario(username) != null)
+		if (catalogoUsuarios.getUsuario(username) != null) {
+			System.out.println("* Username '" + username + "' no está disponible.");
 			return false;
+		}
 
 		// Creamos el usuario, lo registramos y lo añadimos al catalogo
 		Usuario usuario = new Usuario(nombre, apellidos, fNacimiento, email, username, password, false);
 		adaptadorUsuario.registrarUsuario(usuario);
 		catalogoUsuarios.addUsuario(usuario);
 
+		System.out.println("* Usuario '" + username + "' registrado correctamente.");
 		return true;
 	}
 
@@ -86,9 +89,11 @@ public class ControladorAppVideo {
 
 		if (usuario != null && usuario.getPassword().equals(password)) {
 			this.usuarioActual = usuario;
+			System.out.println("* El usuario '" + username + "' se ha logeado en el sistema.");
 			return true;
 		}
 
+		System.out.println("* El usuario '" + username + "' se ha intentado logear en el sistema.");
 		return false;
 	}
 
@@ -102,7 +107,7 @@ public class ControladorAppVideo {
 	}
 
 	public ListaReproduccion crearListaReproduccion(String nombre) {
-		ListaReproduccion lr = usuarioActual.crearListaReproduccion(nombre);
+		ListaReproduccion lr = usuarioActual.crearListaReproduccion(nombre.toUpperCase());
 		adaptadorListaReproduccion.registrarListaReproduccion(lr);
 		adaptadorUsuario.modificarUsuario(usuarioActual);
 		return lr;
@@ -141,12 +146,7 @@ public class ControladorAppVideo {
 		adaptadorUsuario.modificarUsuario(usuarioActual);
 	}
 
-	public void registrarNuevoVideo(Video video) {
-		catalogoVideos.addVideo(video);
-		adaptadorVideo.registrarVideo(video);
-	}
-
-	public List<Video> getAllVideo() {
+	public List<Video> getAllVideos() {
 		return catalogoVideos.getVideos();
 	}
 
@@ -154,7 +154,29 @@ public class ControladorAppVideo {
 		return catalogoVideos.getVideo(titulo);
 	}
 
+	public Etiqueta getEtiqueta(String nombre) {
+
+		for (Etiqueta etiqueta : adaptadorEtiqueta.recuperarTodasEtiquetas())
+			if (etiqueta.getNombre().equals(nombre))
+				return etiqueta;
+
+		return null;
+	}
+
 	public List<Etiqueta> getAllEtiquetas() {
 		return adaptadorEtiqueta.recuperarTodasEtiquetas();
+	}
+
+	public void registrarVideo(Video v) {
+
+		Etiqueta e1 = null;
+		for (Etiqueta e : v.getEtiquetas()) {
+			e1 = getEtiqueta(e.getNombre());
+			if (e1 != null)
+				e.setCodigo(e1.getCodigo());
+		}
+
+		catalogoVideos.addVideo(v);
+		adaptadorVideo.registrarVideo(v);
 	}
 }
