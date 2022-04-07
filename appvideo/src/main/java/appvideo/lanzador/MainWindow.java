@@ -66,7 +66,7 @@ public class MainWindow extends JFrame {
 		setBounds(100, 100, 1300, 800);
 		setMinimumSize(new Dimension(850, 500));
 
-		showPanelPrincipal();
+		showPanelLogin();
 	}
 
 	// METODOS:

@@ -98,6 +98,7 @@ public class ControladorAppVideo {
 	}
 
 	public void logout() {
+		System.out.println("* El usuario '" + usuarioActual.getUsername() + "' ha hecho logout en el sistema.");
 		adaptadorUsuario.modificarUsuario(usuarioActual);
 		this.usuarioActual = null;
 	}
