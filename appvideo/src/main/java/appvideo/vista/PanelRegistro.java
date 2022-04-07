@@ -34,7 +34,6 @@ public class PanelRegistro extends JPanel {
 	private JPasswordField txtC_Password;
 	private JDateChooser dateChooser;
 	private JLabel lblErrores;
-	private String imgPath = "./src/main/java/appvideo/recursos/";
 
 	public PanelRegistro() {
 
@@ -47,7 +46,7 @@ public class PanelRegistro extends JPanel {
 		setLayout(gridBagLayout);
 
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(imgPath + "yt-logo.png"));
+		lblIcon.setIcon(new ImageIcon(PanelRegistro.class.getResource("/appvideo/recursos/yt-logo.png")));
 		GridBagConstraints gbc_lblIcon = new GridBagConstraints();
 		gbc_lblIcon.gridwidth = 2;
 		gbc_lblIcon.insets = new Insets(0, 0, 5, 5);

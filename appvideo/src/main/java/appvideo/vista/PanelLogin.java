@@ -7,7 +7,6 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JPasswordField;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -21,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class PanelLogin extends JPanel {
 
@@ -30,7 +30,6 @@ public class PanelLogin extends JPanel {
 	private JTextField textUsuario;
 	private JPasswordField txtPassword;
 	private JLabel lblErrores;
-	private String imgPath = "./src/main/java/appvideo/recursos/";
 
 	/**
 	 * Create the panel.
@@ -45,7 +44,7 @@ public class PanelLogin extends JPanel {
 		setLayout(gridBagLayout);
 
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(imgPath + "yt-logo.png"));
+		lblIcon.setIcon(new ImageIcon(PanelLogin.class.getResource("/appvideo/recursos/yt-logo.png")));
 		GridBagConstraints gbc_lblIcon = new GridBagConstraints();
 		gbc_lblIcon.gridwidth = 2;
 		gbc_lblIcon.insets = new Insets(0, 0, 5, 5);
@@ -179,8 +178,6 @@ public class PanelLogin extends JPanel {
 			return;
 		}
 
-		// TODO Habra que cambiarlo para que nos lleve al panel principal cuando este
-		// desarrollado.
-		MainWindow.getUnicaInstancia().showPanelLogin();
+		MainWindow.getUnicaInstancia().showPanelPrincipal();
 	}
 }

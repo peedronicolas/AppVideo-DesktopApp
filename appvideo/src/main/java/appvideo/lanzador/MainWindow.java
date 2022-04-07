@@ -1,5 +1,6 @@
 package appvideo.lanzador;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.text.SimpleDateFormat;
 
@@ -9,6 +10,7 @@ import appvideo.controlador.ControladorAppVideo;
 import appvideo.modelo.Etiqueta;
 import appvideo.modelo.Video;
 import appvideo.vista.PanelLogin;
+import appvideo.vista.PanelPrincipal;
 import appvideo.vista.PanelRegistro;
 
 public class MainWindow extends JFrame {
@@ -61,8 +63,10 @@ public class MainWindow extends JFrame {
 	private MainWindow() {
 		setTitle("AppVideo - PNG");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 550);
-		showPanelLogin();
+		setBounds(100, 100, 1300, 800);
+		setMinimumSize(new Dimension(850, 500));
+
+		showPanelPrincipal();
 	}
 
 	// METODOS:
@@ -80,6 +84,12 @@ public class MainWindow extends JFrame {
 
 	public void showPanelRegistro() {
 		setContentPane(new PanelRegistro());
+		revalidate();
+		repaint();
+	}
+
+	public void showPanelPrincipal() {
+		setContentPane(new PanelPrincipal());
 		revalidate();
 		repaint();
 	}
