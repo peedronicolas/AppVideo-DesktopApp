@@ -36,6 +36,12 @@
 			<version>1.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>17</version>
+			<classifier>mac</classifier>
+		</dependency>
 
 	</dependencies>
 </project>

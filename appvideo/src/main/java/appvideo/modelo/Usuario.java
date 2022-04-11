@@ -76,6 +76,10 @@ public class Usuario {
 		return isPremium;
 	}
 
+	public void setIsPremium(Boolean isPremium) {
+		this.isPremium = isPremium;
+	}
+
 	public List<ListaReproduccion> getListasReproduccion() {
 		return listasReproduccion;
 	}
@@ -142,10 +146,6 @@ public class Usuario {
 
 	public List<Video> getVideosRecientes() {
 		return videosRecientes;
-	}
-
-	public Boolean getIsPremium() {
-		return isPremium;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import appvideo.controlador.ControladorAppVideo;
 import appvideo.modelo.Etiqueta;
+import appvideo.modelo.ListaReproduccion;
 import appvideo.modelo.Video;
 import appvideo.vista.PanelLogin;
 import appvideo.vista.PanelPrincipal;
@@ -39,13 +40,26 @@ public class MainWindow extends JFrame {
 							"https://www.youtube.com/watch?v=Fnux6V5679g");
 					v1.addEtiqueta(new Etiqueta("navantia"));
 					v1.addEtiqueta(new Etiqueta("mar"));
+					v1.addEtiqueta(new Etiqueta("submarino"));
+					v1.addEtiqueta(new Etiqueta("armada"));
 
 					Video v2 = new Video("Pruebas de mar corbeta AL-JUBAIL",
 							"https://www.youtube.com/watch?v=bhdbbWTErpE");
 					v2.addEtiqueta(new Etiqueta("navantia"));
+					v2.addEtiqueta(new Etiqueta("mar"));
+					v2.addEtiqueta(new Etiqueta("submarino"));
+					v2.addEtiqueta(new Etiqueta("fragata"));
 
 					c.registrarVideo(v1);
 					c.registrarVideo(v2);
+
+					c.login("pedro", "123");
+
+					c.crearListaReproduccion("Prueba 1");
+					c.crearListaReproduccion("Prueba 2");
+					ListaReproduccion lr = c.crearListaReproduccion("Sector naval");
+					c.addVideoToList(lr, v2);
+					c.covertUserPremium();
 
 					// ------------------------------------------------------------------------
 
@@ -64,9 +78,10 @@ public class MainWindow extends JFrame {
 		setTitle("AppVideo - PNG");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 800);
-		setMinimumSize(new Dimension(850, 500));
+		setMinimumSize(new Dimension(1100, 700));
 
-		showPanelLogin();
+		// TODO Cambiar a panel login para produccion
+		showPanelPrincipal();
 	}
 
 	// METODOS:

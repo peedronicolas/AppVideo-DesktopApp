@@ -72,7 +72,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		props.add(new Propiedad("email", usuario.getEmail()));
 		props.add(new Propiedad("username", usuario.getUsername()));
 		props.add(new Propiedad("password", usuario.getPassword()));
-		props.add(new Propiedad("isPremium", usuario.getIsPremium().toString()));
+		props.add(new Propiedad("isPremium", usuario.isPremium().toString()));
 		props.add(
 				new Propiedad("listasReproduccion", obtenerCodigosListasReproduccion(usuario.getListasReproduccion())));
 		props.add(new Propiedad("videosRecientes", obtenerCodigosVideos(usuario.getVideosRecientes())));
@@ -123,7 +123,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 				prop.setValor(usuario.getPassword());
 
 			} else if (prop.getNombre().equals("isPremium")) {
-				prop.setValor(usuario.getIsPremium().toString());
+				prop.setValor(usuario.isPremium().toString());
 
 			} else if (prop.getNombre().equals("listasReproduccion")) {
 				String listasReproduccion = obtenerCodigosListasReproduccion(usuario.getListasReproduccion());

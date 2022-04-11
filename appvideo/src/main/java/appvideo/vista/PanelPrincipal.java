@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
@@ -23,13 +25,16 @@ public class PanelPrincipal extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private ControladorAppVideo controlador = ControladorAppVideo.getUnicaInstancia();
-	private JPanel panelPrincipalActual = new PanelExplorar();
+	private JPanel panelPrincipalActual = new PanelRecientes();
+	private static PanelPrincipal instanciaActual = null;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelPrincipal() {
-		
+
+		instanciaActual = this;
+
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel panelBarraNavegacion = new JPanel();
@@ -107,17 +112,17 @@ public class PanelPrincipal extends JPanel {
 				cambiarPanelPrincipalActual(new PanelMisListas());
 			}
 		});
-		btnMisListas.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/lista.png")));
-		panelBotones.add(btnMisListas);
 
-		JButton btnNuevaLista = new JButton(" Nueva Lista");
+		JButton btnNuevaLista = new JButton(" Editar Listas");
 		btnNuevaLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarPanelPrincipalActual(new PanelNuevaLista());
+				cambiarPanelPrincipalActual(new PanelEditarListas());
 			}
 		});
 		btnNuevaLista.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/addLista.png")));
 		panelBotones.add(btnNuevaLista);
+		btnMisListas.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/lista.png")));
+		panelBotones.add(btnMisListas);
 
 		JButton btnRecientes = new JButton(" Recientes");
 		btnRecientes.addActionListener(new ActionListener() {
@@ -127,6 +132,20 @@ public class PanelPrincipal extends JPanel {
 		});
 		btnRecientes.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/recientes.png")));
 		panelBotones.add(btnRecientes);
+
+		JButton btnLoMasVisto = new JButton(" Lo Más Visto");
+		btnLoMasVisto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (ControladorAppVideo.getUnicaInstancia().isUserPremium())
+					cambiarPanelPrincipalActual(new PanelVideosMasVistos());
+				else
+					JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(),
+							"Deber ser usuario PREMIUM para acceder a esta funcionalidad.");
+			}
+		});
+		btnLoMasVisto.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/tendencias.png")));
+		panelBotones.add(btnLoMasVisto);
 
 		JButton btnPremium = new JButton(" Hazte Premium");
 		btnPremium.addActionListener(new ActionListener() {
@@ -155,7 +174,12 @@ public class PanelPrincipal extends JPanel {
 		add(panelPrincipalActual, BorderLayout.CENTER);
 	}
 
-	private void cambiarPanelPrincipalActual(JPanel panel) {
+	// METODOS:
+	public static PanelPrincipal getInstanciaActual() {
+		return instanciaActual;
+	}
+
+	public void cambiarPanelPrincipalActual(JPanel panel) {
 		remove(panelPrincipalActual);
 		panelPrincipalActual = panel;
 		add(panelPrincipalActual, BorderLayout.CENTER);

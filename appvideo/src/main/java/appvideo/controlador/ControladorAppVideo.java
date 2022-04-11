@@ -1,6 +1,7 @@
 package appvideo.controlador;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import appvideo.modelo.CatalogoUsuarios;
@@ -134,6 +135,13 @@ public class ControladorAppVideo {
 		return usuarioActual.getListasReproduccion();
 	}
 
+	public List<String> getAllListasReproduccionNames() {
+		LinkedList<String> nombresListasReproduccion = new LinkedList<>();
+		for (ListaReproduccion lr : getAllListasReproduccion())
+			nombresListasReproduccion.add(lr.getNombre());
+		return nombresListasReproduccion;
+	}
+
 	public ListaReproduccion getListaReproduccion(String nombre) {
 		return usuarioActual.getListaReproduccion(nombre);
 	}
@@ -179,5 +187,13 @@ public class ControladorAppVideo {
 
 		catalogoVideos.addVideo(v);
 		adaptadorVideo.registrarVideo(v);
+	}
+
+	public Boolean isUserPremium() {
+		return usuarioActual.isPremium();
+	}
+
+	public void covertUserPremium() {
+		usuarioActual.setIsPremium(true);
 	}
 }
