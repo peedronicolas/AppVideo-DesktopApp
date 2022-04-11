@@ -1,8 +1,20 @@
 package appvideo.controlador;
 
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import appvideo.modelo.CatalogoUsuarios;
 import appvideo.modelo.CatalogoVideos;
@@ -195,5 +207,63 @@ public class ControladorAppVideo {
 
 	public void covertUserPremium() {
 		usuarioActual.setIsPremium(true);
+	}
+
+	public void generatePDF(String path) {
+
+		FileOutputStream archivo;
+		try {
+
+			archivo = new FileOutputStream(path + "/" + usuarioActual.getUsername() + "_listasVideos.pdf");
+			Document documento = new Document();
+			PdfWriter.getInstance(documento, archivo);
+			documento.open();
+
+			// Añadimos el logo
+			Image logo = Image.getInstance("./src/main/java/appvideo/recursos/yt-logo-p.png");
+			logo.setAlignment(Chunk.ALIGN_MIDDLE);
+			documento.add(logo);
+
+			// Añadimos el encabezado
+			Paragraph encabezado = new Paragraph("APP Video - PNG", FontFactory.getFont("Dialog", 20, Font.BOLDITALIC));
+			encabezado.setAlignment(Element.ALIGN_CENTER);
+			documento.add(encabezado);
+
+			documento.add(Chunk.NEWLINE);
+
+			documento.add(new Paragraph("Listas de Reproducción del usuario '" + usuarioActual.getUsername() + "'.",
+					FontFactory.getFont("Dialog", 13, Font.BOLD)));
+
+			documento.add(new Paragraph("_______________________________________________",
+					FontFactory.getFont("Dialog", 20, Font.BOLDITALIC)));
+
+			documento.add(Chunk.NEWLINE);
+
+			LinkedList<ListaReproduccion> listasReproduccion = (LinkedList<ListaReproduccion>) ControladorAppVideo
+					.getUnicaInstancia().getAllListasReproduccion();
+			if (listasReproduccion.isEmpty())
+				documento.add(new Paragraph("Este usuario no tiene ninguna Lista de Reproducción disponible."));
+			else
+				for (ListaReproduccion lr : listasReproduccion) {
+
+					PdfPTable tabla = new PdfPTable(1);
+					tabla.addCell(new Paragraph(lr.getNombre(), FontFactory.getFont("Dialog", 12, Font.BOLD)));
+
+					ArrayList<Video> videos = lr.getVideos();
+					if (videos.isEmpty())
+						tabla.addCell("Esta lista no contiene ningún video.");
+					else
+						for (Video v : videos)
+							tabla.addCell(v.getTitulo() + " - " + v.getNumReproducciones() + " reproducciones.");
+
+					documento.add(tabla);
+					documento.add(new Paragraph(" "));
+				}
+
+			documento.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

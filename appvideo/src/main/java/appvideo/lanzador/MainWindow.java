@@ -36,6 +36,9 @@ public class MainWindow extends JFrame {
 							new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"), "pedro.nicolasg@um.es", "pedro",
 							"123");
 
+					c.registrarusuario("Maria", "Lopez", new SimpleDateFormat("yyyy-MM-dd").parse("1998-07-09"),
+							"maria@um.es", "maria", "123");
+
 					Video v1 = new Video("S81, traslado a la fosa del Syncrolift",
 							"https://www.youtube.com/watch?v=Fnux6V5679g");
 					v1.addEtiqueta(new Etiqueta("navantia"));
@@ -55,10 +58,12 @@ public class MainWindow extends JFrame {
 
 					c.login("pedro", "123");
 
-					c.crearListaReproduccion("Prueba 1");
-					c.crearListaReproduccion("Prueba 2");
-					ListaReproduccion lr = c.crearListaReproduccion("Sector naval");
-					c.addVideoToList(lr, v2);
+					ListaReproduccion lr1 = c.crearListaReproduccion("Ing. Naval");
+					ListaReproduccion lr2 = c.crearListaReproduccion("Sector naval");
+					c.addVideoToList(lr1, v2);
+					c.addVideoToList(lr1, v1);
+					c.addVideoToList(lr1, v2);
+					c.addVideoToList(lr2, v1);
 					c.covertUserPremium();
 
 					// ------------------------------------------------------------------------

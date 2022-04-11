@@ -139,9 +139,11 @@ public class PanelPrincipal extends JPanel {
 
 				if (ControladorAppVideo.getUnicaInstancia().isUserPremium())
 					cambiarPanelPrincipalActual(new PanelVideosMasVistos());
-				else
+				else {
 					JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(),
 							"Deber ser usuario PREMIUM para acceder a esta funcionalidad.");
+					cambiarPanelPrincipalActual(new PanelInformacionPremium());
+				}
 			}
 		});
 		btnLoMasVisto.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/tendencias.png")));
@@ -150,7 +152,10 @@ public class PanelPrincipal extends JPanel {
 		JButton btnPremium = new JButton(" Hazte Premium");
 		btnPremium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cambiarPanelPrincipalActual(new PanelPremium());
+				if (ControladorAppVideo.getUnicaInstancia().isUserPremium())
+					cambiarPanelPrincipalActual(new PanelPremium());
+				else
+					cambiarPanelPrincipalActual(new PanelInformacionPremium());
 			}
 		});
 		btnPremium.setIcon(new ImageIcon(PanelPrincipal.class.getResource("/appvideo/recursos/premium.png")));
