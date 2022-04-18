@@ -82,7 +82,6 @@ public class ControladorAppVideo {
 		// Comprobamos si ya hay un usuario con este 'username', en ese caso no se
 		// registra
 		if (catalogoUsuarios.getUsuario(username) != null) {
-			System.out.println("* Username '" + username + "' no está disponible.");
 			return false;
 		}
 
@@ -91,7 +90,6 @@ public class ControladorAppVideo {
 		adaptadorUsuario.registrarUsuario(usuario);
 		catalogoUsuarios.addUsuario(usuario);
 
-		System.out.println("* Usuario '" + username + "' registrado correctamente.");
 		return true;
 	}
 
@@ -102,16 +100,13 @@ public class ControladorAppVideo {
 
 		if (usuario != null && usuario.getPassword().equals(password)) {
 			this.usuarioActual = usuario;
-			System.out.println("* El usuario '" + username + "' se ha logeado en el sistema.");
 			return true;
 		}
 
-		System.out.println("* El usuario '" + username + "' se ha intentado logear en el sistema.");
 		return false;
 	}
 
 	public void logout() {
-		System.out.println("* El usuario '" + usuarioActual.getUsername() + "' ha hecho logout en el sistema.");
 		adaptadorUsuario.modificarUsuario(usuarioActual);
 		this.usuarioActual = null;
 	}
@@ -178,7 +173,7 @@ public class ControladorAppVideo {
 	public Etiqueta getEtiqueta(String nombre) {
 
 		for (Etiqueta etiqueta : adaptadorEtiqueta.recuperarTodasEtiquetas())
-			if (etiqueta.getNombre().equals(nombre))
+			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
 				return etiqueta;
 
 		return null;
@@ -207,6 +202,28 @@ public class ControladorAppVideo {
 
 	public void covertUserPremium() {
 		usuarioActual.setIsPremium(true);
+	}
+
+	public void incrementarNumReproduccionesVideo(Video video) {
+		video.incrementarNumReproducciones();
+		adaptadorVideo.modificarVideo(video);
+	}
+
+	public boolean addEtiquetaToVideo(Video video, String etiqueta) {
+
+		Etiqueta etq = getEtiqueta(etiqueta);
+
+		if (video.getEtiquetas().contains(etq))
+			return false;
+
+		if (etq == null) {
+			etq = new Etiqueta(etiqueta);
+			adaptadorEtiqueta.registrarEtiqueta(etq);
+		}
+
+		video.addEtiqueta(etq);
+		adaptadorVideo.modificarVideo(video);
+		return true;
 	}
 
 	public void generatePDF(String path) {

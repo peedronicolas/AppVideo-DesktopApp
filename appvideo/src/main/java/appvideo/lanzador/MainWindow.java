@@ -7,13 +7,10 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 
 import appvideo.controlador.ControladorAppVideo;
-import appvideo.modelo.Etiqueta;
-import appvideo.modelo.ListaReproduccion;
-import appvideo.modelo.Video;
+import appvideo.modelo.*;
 import appvideo.vista.PanelLogin;
 import appvideo.vista.PanelPrincipal;
 import appvideo.vista.PanelRegistro;
-import appvideo.vista.PanelReproductor;
 import tds.video.VideoWeb;
 
 public class MainWindow extends JFrame {
@@ -41,33 +38,57 @@ public class MainWindow extends JFrame {
 
 					c.registrarusuario("Maria", "Lopez", new SimpleDateFormat("yyyy-MM-dd").parse("1998-07-09"),
 							"maria@um.es", "maria", "123");
-
-					Video v1 = new Video("S81, traslado a la fosa del Syncrolift",
-							"https://www.youtube.com/watch?v=Fnux6V5679g");
-					v1.addEtiqueta(new Etiqueta("navantia"));
-					v1.addEtiqueta(new Etiqueta("mar"));
-					v1.addEtiqueta(new Etiqueta("submarino"));
-					v1.addEtiqueta(new Etiqueta("armada"));
-
-					Video v2 = new Video("Pruebas de mar corbeta AL-JUBAIL",
-							"https://www.youtube.com/watch?v=bhdbbWTErpE");
-					v2.addEtiqueta(new Etiqueta("navantia"));
-					v2.addEtiqueta(new Etiqueta("mar"));
-					v2.addEtiqueta(new Etiqueta("submarino"));
-					v2.addEtiqueta(new Etiqueta("fragata"));
-
-					c.registrarVideo(v1);
-					c.registrarVideo(v2);
+//
+//					Video v1 = new Video("S81, traslado a la fosa del Syncrolift",
+//							"https://www.youtube.com/watch?v=Fnux6V5679g");
+//					v1.addEtiqueta(new Etiqueta("navantia"));
+//					v1.addEtiqueta(new Etiqueta("mar"));
+//					v1.addEtiqueta(new Etiqueta("submarino"));
+//					v1.addEtiqueta(new Etiqueta("armada"));
+//
+//					Video v2 = new Video("Pruebas de mar corbeta AL-JUBAIL",
+//							"https://www.youtube.com/watch?v=bhdbbWTErpE");
+//					v2.addEtiqueta(new Etiqueta("navantia"));
+//					v2.addEtiqueta(new Etiqueta("mar"));
+//					v2.addEtiqueta(new Etiqueta("submarino"));
+//					v2.addEtiqueta(new Etiqueta("fragata"));
+//
+//					Video v3 = new Video("POCOYÓ en ESPAÑOL - Especial 2020",
+//							"https://www.youtube.com/watch?v=g8KuwGC0QYQ");
+//					v3.addEtiqueta(new Etiqueta("pocoyo"));
+//					v3.addEtiqueta(new Etiqueta("dibujos"));
+//					v3.addEtiqueta(new Etiqueta("niños"));
+//
+//					Video v4 = new Video("Separación Rápida | Ben 10", "https://www.youtube.com/watch?v=Vu89nxRhJu0");
+//					v4.addEtiqueta(new Etiqueta("dibujos"));
+//					v4.addEtiqueta(new Etiqueta("niños"));
+//					v4.addEtiqueta(new Etiqueta("ben 10"));
+//
+//					Video v5 = new Video("Shouse - Love Tonight ", "https://www.youtube.com/watch?v=V0woPCb5xk8");
+//					v5.addEtiqueta(new Etiqueta("musica"));
+//
+//					Video v6 = new Video("A equipe de Relâmpago McQueen",
+//							"https://www.youtube.com/watch?v=T3MYVPAMiac");
+//					v6.addEtiqueta(new Etiqueta("dibujos"));
+//					v6.addEtiqueta(new Etiqueta("niños"));
+//					v6.addEtiqueta(new Etiqueta("cars"));
+//					v6.addEtiqueta(new Etiqueta("entretenimiento"));
+//
+//					Video v7 = new Video("Paco de Lucía y Camarón de la Isla por bulerías",
+//							"https://www.youtube.com/watch?v=YSAq2oJB53E");
+//					v7.addEtiqueta(new Etiqueta("musica"));
+//					v7.addEtiqueta(new Etiqueta("flamenco"));
+//					v7.addEtiqueta(new Etiqueta("guitarra española"));
+//
+//					c.registrarVideo(v1);
+//					c.registrarVideo(v2);
+//					c.registrarVideo(v3);
+//					c.registrarVideo(v4);
+//					c.registrarVideo(v5);
+//					c.registrarVideo(v6);
+//					c.registrarVideo(v7);
 
 					c.login("pedro", "123");
-
-					ListaReproduccion lr1 = c.crearListaReproduccion("Ing. Naval");
-					ListaReproduccion lr2 = c.crearListaReproduccion("Sector naval");
-					c.addVideoToList(lr1, v2);
-					c.addVideoToList(lr1, v1);
-					c.addVideoToList(lr1, v2);
-					c.addVideoToList(lr2, v1);
-					c.covertUserPremium();
 
 					// ------------------------------------------------------------------------
 
@@ -75,13 +96,6 @@ public class MainWindow extends JFrame {
 
 					MainWindow frame = MainWindow.getUnicaInstancia();
 					frame.setVisible(true);
-
-					// ------------------------------------------------------------------------
-
-					PanelReproductor.getUnicaInstancia().reproducirVideo(
-							ControladorAppVideo.getUnicaInstancia().getVideo("Pruebas de mar corbeta AL-JUBAIL"));
-
-					// ------------------------------------------------------------------------
 
 				} catch (Exception e) {
 					e.printStackTrace();

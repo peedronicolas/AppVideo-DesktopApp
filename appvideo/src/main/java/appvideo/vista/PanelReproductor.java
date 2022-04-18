@@ -5,6 +5,8 @@ import javax.swing.JTextField;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -12,6 +14,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JButton;
 
+import appvideo.controlador.ControladorAppVideo;
 import appvideo.lanzador.MainWindow;
 import appvideo.modelo.Etiqueta;
 import appvideo.modelo.Video;
@@ -37,6 +40,7 @@ public class PanelReproductor extends JPanel {
 	private JPanel panelAddEtiqueta;
 	private GridBagConstraints gbc_panelAddEtiqueta;
 	private JTextField textEtiqueta;
+	private Video videoActual = null;
 
 	/**
 	 * Create the panel.
@@ -135,7 +139,6 @@ public class PanelReproductor extends JPanel {
 		gbc_panelEtiquetas.gridx = 0;
 		gbc_panelEtiquetas.gridy = 11;
 		add(panelEtiquetas, gbc_panelEtiquetas);
-		add(panelAddEtiqueta, gbc_panelAddEtiqueta);
 		panelEtiquetas.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -150,6 +153,8 @@ public class PanelReproductor extends JPanel {
 
 	public void reproducirVideo(Video video) {
 
+		videoActual = video;
+
 		lblTitulo.setText(video.getTitulo());
 		MainWindow.getVideoWeb().playVideo(video.getURL());
 		lblReproducciones.setText(video.getNumReproducciones() + " reproducciones");
@@ -163,6 +168,9 @@ public class PanelReproductor extends JPanel {
 		}
 
 		add(panelAddEtiqueta, gbc_panelAddEtiqueta);
+
+		revalidate();
+		repaint();
 	}
 
 	public void clearPanel() {
@@ -173,14 +181,32 @@ public class PanelReproductor extends JPanel {
 		lblAddEtiq.setText("");
 		panelEtiquetas.removeAll();
 		remove(panelAddEtiqueta);
+
+		revalidate();
+		repaint();
 	}
 
 	private void addEtiqueta() {
 
-		if (!textEtiqueta.getText().equals("")) {
-			System.out.println("Registrar Etiqueta");
-		}
-
+		String etqName = textEtiqueta.getText().toUpperCase();
 		textEtiqueta.setText("");
+
+		if (!etqName.equals("")) {
+
+			boolean isRegistrada = ControladorAppVideo.getUnicaInstancia().addEtiquetaToVideo(videoActual, etqName);
+
+			if (isRegistrada == false) {
+				JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(),
+						"La etiqueta '" + etqName + "' ya existe para este video.");
+				return;
+			}
+
+			JButton btnEtiqueta = new JButton(etqName);
+			btnEtiqueta.setEnabled(false);
+			panelEtiquetas.add(btnEtiqueta);
+
+			revalidate();
+			repaint();
+		}
 	}
 }
