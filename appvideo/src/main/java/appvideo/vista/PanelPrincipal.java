@@ -65,6 +65,10 @@ public class PanelPrincipal extends JPanel {
 		JButton btnLogout = new JButton(" Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				// Limpiamos el panel reproductor si el usuario cierra sesion
+				PanelReproductor.getUnicaInstancia().clearPanel();
+
 				controlador.logout();
 				MainWindow.getUnicaInstancia().showPanelLogin();
 			}

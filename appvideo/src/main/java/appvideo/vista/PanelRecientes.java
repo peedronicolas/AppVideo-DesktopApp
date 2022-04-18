@@ -41,13 +41,13 @@ public class PanelRecientes extends JPanel {
 		gbc_scrollPaneVideos.gridy = 1;
 		add(scrollPaneVideos, gbc_scrollPaneVideos);
 
-		JScrollPane scrollPaneReproductor = new JScrollPane();
-		GridBagConstraints gbc_scrollPaneReproductor = new GridBagConstraints();
-		gbc_scrollPaneReproductor.gridheight = 2;
-		gbc_scrollPaneReproductor.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPaneReproductor.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneReproductor.gridx = 3;
-		gbc_scrollPaneReproductor.gridy = 0;
-		add(scrollPaneReproductor, gbc_scrollPaneReproductor);
+		JPanel panelReproductor = PanelReproductor.getUnicaInstancia();
+		GridBagConstraints gbc_panelReproductor = new GridBagConstraints();
+		gbc_panelReproductor.gridheight = 2;
+		gbc_panelReproductor.insets = new Insets(0, 0, 5, 5);
+		gbc_panelReproductor.fill = GridBagConstraints.BOTH;
+		gbc_panelReproductor.gridx = 3;
+		gbc_panelReproductor.gridy = 0;
+		add(panelReproductor, gbc_panelReproductor);
 	}
 }

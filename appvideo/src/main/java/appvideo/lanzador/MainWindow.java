@@ -13,6 +13,7 @@ import appvideo.modelo.Video;
 import appvideo.vista.PanelLogin;
 import appvideo.vista.PanelPrincipal;
 import appvideo.vista.PanelRegistro;
+import appvideo.vista.PanelReproductor;
 
 public class MainWindow extends JFrame {
 
@@ -70,6 +71,9 @@ public class MainWindow extends JFrame {
 
 					MainWindow frame = MainWindow.getUnicaInstancia();
 					frame.setVisible(true);
+
+					PanelReproductor.getUnicaInstancia().reproducirVideo(
+							ControladorAppVideo.getUnicaInstancia().getVideo("Pruebas de mar corbeta AL-JUBAIL"));
 
 				} catch (Exception e) {
 					e.printStackTrace();
