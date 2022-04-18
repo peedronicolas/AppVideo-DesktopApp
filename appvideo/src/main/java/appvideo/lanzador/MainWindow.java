@@ -14,11 +14,13 @@ import appvideo.vista.PanelLogin;
 import appvideo.vista.PanelPrincipal;
 import appvideo.vista.PanelRegistro;
 import appvideo.vista.PanelReproductor;
+import tds.video.VideoWeb;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static MainWindow unicaInstancia = null;
+	private static VideoWeb videoWeb;
 
 	/**
 	 * Launch the application.
@@ -69,11 +71,17 @@ public class MainWindow extends JFrame {
 
 					// ------------------------------------------------------------------------
 
+					videoWeb = new VideoWeb();
+
 					MainWindow frame = MainWindow.getUnicaInstancia();
 					frame.setVisible(true);
 
+					// ------------------------------------------------------------------------
+
 					PanelReproductor.getUnicaInstancia().reproducirVideo(
 							ControladorAppVideo.getUnicaInstancia().getVideo("Pruebas de mar corbeta AL-JUBAIL"));
+
+					// ------------------------------------------------------------------------
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -98,6 +106,10 @@ public class MainWindow extends JFrame {
 		if (unicaInstancia == null)
 			unicaInstancia = new MainWindow();
 		return unicaInstancia;
+	}
+
+	public static VideoWeb getVideoWeb() {
+		return videoWeb;
 	}
 
 	public void showPanelLogin() {

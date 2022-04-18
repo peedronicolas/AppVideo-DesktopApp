@@ -12,9 +12,9 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JButton;
 
+import appvideo.lanzador.MainWindow;
 import appvideo.modelo.Etiqueta;
 import appvideo.modelo.Video;
-import tds.video.VideoWeb;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,7 +28,6 @@ public class PanelReproductor extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private static PanelReproductor unicaInstancia = null;
-	private static VideoWeb videoWeb;
 
 	private JLabel lblTitulo;
 	private JLabel lblReproducciones;
@@ -43,8 +42,6 @@ public class PanelReproductor extends JPanel {
 	 * Create the panel.
 	 */
 	private PanelReproductor() {
-
-		videoWeb = new VideoWeb();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
@@ -77,7 +74,7 @@ public class PanelReproductor extends JPanel {
 		add(lblTitulo, gbc_lblTitulo);
 
 		JPanel panelVideo = new JPanel();
-		panelVideo.add(videoWeb);
+		panelVideo.add(MainWindow.getVideoWeb());
 		GridBagConstraints gbc_panelVideo = new GridBagConstraints();
 		gbc_panelVideo.gridwidth = 2;
 		gbc_panelVideo.insets = new Insets(0, 0, 5, 0);
@@ -154,7 +151,7 @@ public class PanelReproductor extends JPanel {
 	public void reproducirVideo(Video video) {
 
 		lblTitulo.setText(video.getTitulo());
-		videoWeb.playVideo(video.getURL());
+		MainWindow.getVideoWeb().playVideo(video.getURL());
 		lblReproducciones.setText(video.getNumReproducciones() + " reproducciones");
 		lblAddEtiq.setText("Añade una nueva etiqueta");
 
@@ -171,7 +168,7 @@ public class PanelReproductor extends JPanel {
 	public void clearPanel() {
 
 		lblTitulo.setText("Reproductor");
-		videoWeb.cancel();
+		MainWindow.getVideoWeb().cancel();
 		lblReproducciones.setText("");
 		lblAddEtiq.setText("");
 		panelEtiquetas.removeAll();
