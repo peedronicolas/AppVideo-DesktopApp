@@ -6,9 +6,11 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.LinkedList;
 import java.awt.Font;
 import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
 
 import appvideo.controlador.ControladorAppVideo;
 import appvideo.modelo.ListaReproduccion;
@@ -16,11 +18,14 @@ import appvideo.modelo.ListaReproduccion;
 public class PanelMisListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JPanel panelVideo;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelMisListas() {
+
+		panelVideo = new PanelMiniaturas(new LinkedList<>());
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 20, 380, 20, 0, 20, 0 };
@@ -39,6 +44,20 @@ public class PanelMisListas extends JPanel {
 		add(lblLR, gbc_lblLR);
 
 		JComboBox<String> comboBoxLR = new JComboBox<String>();
+
+		comboBoxLR.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent itemEvent) {
+
+				ListaReproduccion lr = ControladorAppVideo.getUnicaInstancia()
+						.getListaReproduccion((String) comboBoxLR.getSelectedItem());
+				panelVideo.removeAll();
+				panelVideo.add(
+						new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getVideosListaReproduccion(lr)));
+				revalidate();
+				repaint();
+			}
+		});
+
 		for (ListaReproduccion listaReproduccion : ControladorAppVideo.getUnicaInstancia().getAllListasReproduccion())
 			comboBoxLR.addItem(listaReproduccion.getNombre());
 
@@ -57,14 +76,6 @@ public class PanelMisListas extends JPanel {
 		gbc_lblVideosLista.gridy = 3;
 		add(lblVideosLista, gbc_lblVideosLista);
 
-		JScrollPane scrollPaneVideos = new JScrollPane();
-		GridBagConstraints gbc_scrollPaneVideos = new GridBagConstraints();
-		gbc_scrollPaneVideos.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPaneVideos.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneVideos.gridx = 1;
-		gbc_scrollPaneVideos.gridy = 4;
-		add(scrollPaneVideos, gbc_scrollPaneVideos);
-
 		JPanel panelReproductor = PanelReproductor.getUnicaInstancia();
 		GridBagConstraints gbc_panelReproductor = new GridBagConstraints();
 		gbc_panelReproductor.gridheight = 5;
@@ -73,5 +84,12 @@ public class PanelMisListas extends JPanel {
 		gbc_panelReproductor.gridx = 3;
 		gbc_panelReproductor.gridy = 0;
 		add(panelReproductor, gbc_panelReproductor);
+
+		GridBagConstraints gbc_panelVideo = new GridBagConstraints();
+		gbc_panelVideo.insets = new Insets(0, 0, 5, 5);
+		gbc_panelVideo.fill = GridBagConstraints.BOTH;
+		gbc_panelVideo.gridx = 1;
+		gbc_panelVideo.gridy = 4;
+		add(panelVideo, gbc_panelVideo);
 	}
 }

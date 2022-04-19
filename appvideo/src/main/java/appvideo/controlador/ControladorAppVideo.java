@@ -178,6 +178,10 @@ public class ControladorAppVideo {
 				.filter(video -> video.getEtiquetas().containsAll(etiquetas)).collect(Collectors.toList());
 	}
 
+	public List<Video> getVideosListaReproduccion(ListaReproduccion listaReproduccion) {
+		return listaReproduccion.getVideos();
+	}
+
 	public void addVideoReciente(Video video) {
 		usuarioActual.addVideoReciente(video);
 		adaptadorUsuario.modificarUsuario(usuarioActual);
