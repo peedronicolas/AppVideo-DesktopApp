@@ -43,7 +43,8 @@ public class PanelRecientes extends JPanel {
 		gbc_panelReproductor.gridy = 0;
 		add(panelReproductor, gbc_panelReproductor);
 
-		JPanel panelVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos());
+		JPanel panelVideos = new PanelMiniaturas(
+				ControladorAppVideo.getUnicaInstancia().getUsuarioActual().getVideosRecientes());
 		GridBagConstraints gbc_panelVideos = new GridBagConstraints();
 		gbc_panelVideos.insets = new Insets(0, 0, 5, 5);
 		gbc_panelVideos.fill = GridBagConstraints.BOTH;

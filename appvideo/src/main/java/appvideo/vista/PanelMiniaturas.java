@@ -59,7 +59,8 @@ class VideoListRenderer extends JLabel implements ListCellRenderer<Video> {
 			boolean isSelected, boolean cellHasFocus) {
 
 		setIcon(MainWindow.getVideoWeb().getThumb(video.getURL()));
-		setText("  " + video.getTitulo() + "  ");
+		setText("<html><body>" + video.getTitulo() + "<br>" + video.getNumReproducciones() + " visualizaciones."
+				+ "</body></html>");
 
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
@@ -88,9 +89,10 @@ class ActionJList extends MouseAdapter {
 			Video video = dlm.getElementAt(index);
 			list.ensureIndexIsVisible(index);
 
-			// Si hacemos doble click se reproduce el video e incrementamos el contador de
-			// reproducciones.
+			// Si hacemos doble click se reproduce el video, incrementamos el contador de
+			// reproducciones y añadimos el video a los recientes del usuario.
 			ControladorAppVideo.getUnicaInstancia().incrementarNumReproduccionesVideo(video);
+			ControladorAppVideo.getUnicaInstancia().addVideoReciente(video);
 			PanelReproductor.getUnicaInstancia().reproducirVideo(video);
 		}
 	}

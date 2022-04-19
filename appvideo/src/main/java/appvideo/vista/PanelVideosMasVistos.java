@@ -6,7 +6,8 @@ import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
+import appvideo.controlador.ControladorAppVideo;
 
 public class PanelVideosMasVistos extends JPanel {
 
@@ -32,14 +33,6 @@ public class PanelVideosMasVistos extends JPanel {
 		gbc_lblVideosMasVistos.gridy = 0;
 		add(lblVideosMasVistos, gbc_lblVideosMasVistos);
 
-		JScrollPane scrollPaneVideos = new JScrollPane();
-		GridBagConstraints gbc_scrollPaneVideos = new GridBagConstraints();
-		gbc_scrollPaneVideos.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPaneVideos.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneVideos.gridx = 1;
-		gbc_scrollPaneVideos.gridy = 1;
-		add(scrollPaneVideos, gbc_scrollPaneVideos);
-
 		JPanel panelReproductor = PanelReproductor.getUnicaInstancia();
 		GridBagConstraints gbc_panelReproductor = new GridBagConstraints();
 		gbc_panelReproductor.gridheight = 2;
@@ -48,5 +41,14 @@ public class PanelVideosMasVistos extends JPanel {
 		gbc_panelReproductor.gridx = 3;
 		gbc_panelReproductor.gridy = 0;
 		add(panelReproductor, gbc_panelReproductor);
+
+		JPanel panelVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getVideosMasVistos());
+
+		GridBagConstraints gbc_panelVideos = new GridBagConstraints();
+		gbc_panelVideos.insets = new Insets(0, 0, 5, 5);
+		gbc_panelVideos.fill = GridBagConstraints.BOTH;
+		gbc_panelVideos.gridx = 1;
+		gbc_panelVideos.gridy = 1;
+		add(panelVideos, gbc_panelVideos);
 	}
 }

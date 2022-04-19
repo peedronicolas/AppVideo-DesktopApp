@@ -9,6 +9,10 @@ import appvideo.modelo.Etiqueta;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 import javax.swing.JTextField;
@@ -28,11 +32,13 @@ public class PanelExplorar extends JPanel {
 	private LinkedList<JCheckBox> listCheckBoxEtiquetas = new LinkedList<>();
 	private JTextField textbusqueda;
 	private JPanel panelEtiquetas;
+	private JPanel panelVideos;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelExplorar() {
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 20, 0, 300, 0, 0, 20, 0, 20, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 20, 0 };
@@ -50,6 +56,12 @@ public class PanelExplorar extends JPanel {
 		add(lblBuscador, gbc_lblBuscador);
 
 		JButton btnRBusqueda = new JButton(" Reiniciar Busqueda");
+		btnRBusqueda.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reiniciarBusqueda();
+			}
+		});
 		btnRBusqueda.setIcon(new ImageIcon(PanelExplorar.class.getResource("/appvideo/recursos/reset.png")));
 		GridBagConstraints gbc_btnRBusqueda = new GridBagConstraints();
 		gbc_btnRBusqueda.insets = new Insets(0, 0, 5, 5);
@@ -58,6 +70,13 @@ public class PanelExplorar extends JPanel {
 		add(btnRBusqueda, gbc_btnRBusqueda);
 
 		textbusqueda = new JTextField();
+		textbusqueda.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					realizarBusqueda();
+			}
+		});
 		GridBagConstraints gbc_textbusqueda = new GridBagConstraints();
 		gbc_textbusqueda.insets = new Insets(0, 0, 5, 5);
 		gbc_textbusqueda.fill = GridBagConstraints.BOTH;
@@ -67,6 +86,12 @@ public class PanelExplorar extends JPanel {
 		textbusqueda.setColumns(10);
 
 		JButton btnBuscar = new JButton("");
+		btnBuscar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				realizarBusqueda();
+			}
+		});
 		btnBuscar.setIcon(new ImageIcon(PanelExplorar.class.getResource("/appvideo/recursos/lupa.png")));
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 		gbc_btnBuscar.insets = new Insets(0, 0, 5, 5);
@@ -90,14 +115,14 @@ public class PanelExplorar extends JPanel {
 		gbc_lblEtiquetas.gridy = 2;
 		add(lblEtiquetas, gbc_lblEtiquetas);
 
-		JScrollPane scrollPaneVideos = new JScrollPane();
-		GridBagConstraints gbc_scrollPaneVideos = new GridBagConstraints();
-		gbc_scrollPaneVideos.gridwidth = 4;
-		gbc_scrollPaneVideos.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPaneVideos.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneVideos.gridx = 1;
-		gbc_scrollPaneVideos.gridy = 3;
-		add(scrollPaneVideos, gbc_scrollPaneVideos);
+		panelVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos());
+		GridBagConstraints gbc_panelVideos = new GridBagConstraints();
+		gbc_panelVideos.gridwidth = 4;
+		gbc_panelVideos.insets = new Insets(0, 0, 5, 5);
+		gbc_panelVideos.fill = GridBagConstraints.BOTH;
+		gbc_panelVideos.gridx = 1;
+		gbc_panelVideos.gridy = 3;
+		add(panelVideos, gbc_panelVideos);
 
 		JScrollPane scrollPaneEtiquetas = new JScrollPane();
 		scrollPaneEtiquetas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -122,5 +147,31 @@ public class PanelExplorar extends JPanel {
 	private void createListCheckBoxEtiquetas() {
 		for (Etiqueta etiqueta : controlador.getAllEtiquetas())
 			listCheckBoxEtiquetas.add(new JCheckBox(etiqueta.getNombre()));
+	}
+
+	private void reiniciarBusqueda() {
+		textbusqueda.setText("");
+		for (JCheckBox jcb : listCheckBoxEtiquetas)
+			jcb.setSelected(false);
+
+		panelVideos.removeAll();
+		panelVideos.add(new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos()));
+		revalidate();
+		repaint();
+	}
+
+	private void realizarBusqueda() {
+
+		LinkedList<Etiqueta> etiquetasSeleccionadas = new LinkedList<>();
+
+		for (JCheckBox jcb : listCheckBoxEtiquetas)
+			if (jcb.isSelected())
+				etiquetasSeleccionadas.add(ControladorAppVideo.getUnicaInstancia().getEtiqueta(jcb.getText()));
+
+		panelVideos.removeAll();
+		panelVideos.add(new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia()
+				.getVideosBusqueda(textbusqueda.getText(), etiquetasSeleccionadas)));
+		revalidate();
+		repaint();
 	}
 }

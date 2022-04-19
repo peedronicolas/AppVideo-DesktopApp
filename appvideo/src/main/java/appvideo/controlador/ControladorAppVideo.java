@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -153,8 +154,28 @@ public class ControladorAppVideo {
 		return usuarioActual.getListaReproduccion(nombre);
 	}
 
-	public List<Video> getVideoRecientes() {
+	public List<Video> getVideosRecientes() {
 		return usuarioActual.getVideosRecientes();
+	}
+
+	public List<Video> getVideosMasVistos() {
+
+		// Obtenemos los videos del sistema, quitamos los que no han sido reproducidos
+		// y ordenamos de mayor a menor segun el num de reproducciones
+
+		return getAllVideos().stream().filter(video -> !(video.getNumReproducciones() == 0))
+				.sorted((v1, v2) -> Integer.compare(v2.getNumReproducciones(), v1.getNumReproducciones()))
+				.collect(Collectors.toList());
+	}
+
+	public List<Video> getVideosBusqueda(String texto, LinkedList<Etiqueta> etiquetas) {
+
+		// Obtenemos los videos del sistema y nos quedamos con aquellos lo cuales
+		// contienen la variable texto como subcadena de su titulo y ademas tienen las
+		// etiquetas que han sido seleccionadas como filtro
+
+		return getAllVideos().stream().filter(video -> video.getTitulo().toLowerCase().contains(texto.toLowerCase()))
+				.filter(video -> video.getEtiquetas().containsAll(etiquetas)).collect(Collectors.toList());
 	}
 
 	public void addVideoReciente(Video video) {
@@ -202,6 +223,7 @@ public class ControladorAppVideo {
 
 	public void covertUserPremium() {
 		usuarioActual.setIsPremium(true);
+		adaptadorUsuario.modificarUsuario(usuarioActual);
 	}
 
 	public void incrementarNumReproduccionesVideo(Video video) {

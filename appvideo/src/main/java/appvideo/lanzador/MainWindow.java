@@ -32,12 +32,12 @@ public class MainWindow extends JFrame {
 
 					ControladorAppVideo c = ControladorAppVideo.getUnicaInstancia();
 
-					c.registrarusuario("Pedro", "Nicolas Gomariz",
-							new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"), "pedro.nicolasg@um.es", "pedro",
-							"123");
-
-					c.registrarusuario("Maria", "Lopez", new SimpleDateFormat("yyyy-MM-dd").parse("1998-07-09"),
-							"maria@um.es", "maria", "123");
+//					c.registrarusuario("Pedro", "Nicolas Gomariz",
+//							new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"), "pedro.nicolasg@um.es", "pedro",
+//							"123");
+//
+//					c.registrarusuario("Maria", "Lopez", new SimpleDateFormat("yyyy-MM-dd").parse("1998-07-09"),
+//							"maria@um.es", "maria", "123");
 //
 //					Video v1 = new Video("S81, traslado a la fosa del Syncrolift",
 //							"https://www.youtube.com/watch?v=Fnux6V5679g");
