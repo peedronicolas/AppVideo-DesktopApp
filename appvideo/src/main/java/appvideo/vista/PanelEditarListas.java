@@ -1,11 +1,11 @@
 package appvideo.vista;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import appvideo.controlador.ControladorAppVideo;
 import appvideo.lanzador.MainWindow;
 import appvideo.modelo.ListaReproduccion;
+import appvideo.modelo.Video;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,16 +16,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class PanelEditarListas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JPanel panelVideosLista;
+	private PanelMiniaturas panelMiniaturasLista;
+	private JComboBox<String> comboBoxListaReproduccion;
+	private PanelExplorar panelExplorar;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelEditarListas() {
+
+		panelMiniaturasLista = new PanelMiniaturas(new LinkedList<>());
+		panelVideosLista = panelMiniaturasLista;
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 20, 0, 0, 20, 0, 0 };
@@ -61,7 +71,7 @@ public class PanelEditarListas extends JPanel {
 
 				Object[] options = ControladorAppVideo.getUnicaInstancia().getAllListasReproduccionNames().toArray();
 				Object nombreListaReproduccion = JOptionPane.showInputDialog(MainWindow.getUnicaInstancia(),
-						"Selecciona la Lista de Reproducción:", "Eliminar Lista de Reproducción",
+						"Selecciona la Lista de Reproducción a eliminar:", "Eliminar Lista de Reproducción",
 						JOptionPane.PLAIN_MESSAGE, null, options, "");
 
 				if (nombreListaReproduccion != null) {
@@ -88,9 +98,16 @@ public class PanelEditarListas extends JPanel {
 		gbc_lblSeleccionaListaReproduccin.gridy = 2;
 		add(lblSeleccionaListaReproduccin, gbc_lblSeleccionaListaReproduccin);
 
-		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBoxListaReproduccion = new JComboBox<String>();
+
+		comboBoxListaReproduccion.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent itemEvent) {
+				recargarPanelVideosLista();
+			}
+		});
+
 		for (ListaReproduccion listaReproduccion : ControladorAppVideo.getUnicaInstancia().getAllListasReproduccion())
-			comboBox.addItem(listaReproduccion.getNombre());
+			comboBoxListaReproduccion.addItem(listaReproduccion.getNombre());
 
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
@@ -98,7 +115,7 @@ public class PanelEditarListas extends JPanel {
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 3;
-		add(comboBox, gbc_comboBox);
+		add(comboBoxListaReproduccion, gbc_comboBox);
 
 		JLabel lblVideos = new JLabel("Videos Lista");
 		GridBagConstraints gbc_lblVideos = new GridBagConstraints();
@@ -108,16 +125,15 @@ public class PanelEditarListas extends JPanel {
 		gbc_lblVideos.gridy = 5;
 		add(lblVideos, gbc_lblVideos);
 
-		JScrollPane scrollPaneVideosLista = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneVideosLista = new GridBagConstraints();
 		gbc_scrollPaneVideosLista.gridwidth = 2;
 		gbc_scrollPaneVideosLista.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPaneVideosLista.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneVideosLista.gridx = 1;
 		gbc_scrollPaneVideosLista.gridy = 6;
-		add(scrollPaneVideosLista, gbc_scrollPaneVideosLista);
+		add(panelVideosLista, gbc_scrollPaneVideosLista);
 
-		JPanel panelExplorar = new PanelExplorar();
+		panelExplorar = new PanelExplorar();
 		GridBagConstraints gbc_panelExplorar = new GridBagConstraints();
 		gbc_panelExplorar.gridheight = 10;
 		gbc_panelExplorar.fill = GridBagConstraints.BOTH;
@@ -126,6 +142,11 @@ public class PanelEditarListas extends JPanel {
 		add(panelExplorar, gbc_panelExplorar);
 
 		JButton btnAñadirVideo = new JButton("Añadir");
+		btnAñadirVideo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				añadirVideoListaReproduccion();
+			}
+		});
 		GridBagConstraints gbc_btnAñadirVideo = new GridBagConstraints();
 		gbc_btnAñadirVideo.anchor = GridBagConstraints.EAST;
 		gbc_btnAñadirVideo.insets = new Insets(0, 0, 5, 5);
@@ -134,11 +155,59 @@ public class PanelEditarListas extends JPanel {
 		add(btnAñadirVideo, gbc_btnAñadirVideo);
 
 		JButton btnQuitarVideo = new JButton("Quitar");
+		btnQuitarVideo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarVideoListaReproduccion();
+			}
+		});
 		GridBagConstraints gbc_btnQuitarVideo = new GridBagConstraints();
 		gbc_btnQuitarVideo.anchor = GridBagConstraints.WEST;
 		gbc_btnQuitarVideo.insets = new Insets(0, 0, 5, 5);
 		gbc_btnQuitarVideo.gridx = 2;
 		gbc_btnQuitarVideo.gridy = 8;
 		add(btnQuitarVideo, gbc_btnQuitarVideo);
+	}
+
+	private void recargarPanelVideosLista() {
+
+		ListaReproduccion lr = ControladorAppVideo.getUnicaInstancia()
+				.getListaReproduccion((String) comboBoxListaReproduccion.getSelectedItem());
+
+		panelMiniaturasLista = new PanelMiniaturas(
+				ControladorAppVideo.getUnicaInstancia().getVideosListaReproduccion(lr));
+
+		panelVideosLista.removeAll();
+		panelVideosLista.add(panelMiniaturasLista);
+		revalidate();
+		repaint();
+	}
+
+	private void eliminarVideoListaReproduccion() {
+
+		Video video = panelMiniaturasLista.getVideoSeleccionado();
+
+		if (video != null && (String) comboBoxListaReproduccion.getSelectedItem() != null) {
+
+			ListaReproduccion lr = ControladorAppVideo.getUnicaInstancia()
+					.getListaReproduccion((String) comboBoxListaReproduccion.getSelectedItem());
+
+			ControladorAppVideo.getUnicaInstancia().removeVideoToList(lr, video);
+			recargarPanelVideosLista();
+		}
+	}
+
+	private void añadirVideoListaReproduccion() {
+
+		Video video = panelExplorar.getVideoSeleccionado();
+
+		if (video != null && (String) comboBoxListaReproduccion.getSelectedItem() != null) {
+
+			ListaReproduccion lr = ControladorAppVideo.getUnicaInstancia()
+					.getListaReproduccion((String) comboBoxListaReproduccion.getSelectedItem());
+
+			ControladorAppVideo.getUnicaInstancia().addVideoToList(lr, video);
+
+			recargarPanelVideosLista();
+		}
 	}
 }

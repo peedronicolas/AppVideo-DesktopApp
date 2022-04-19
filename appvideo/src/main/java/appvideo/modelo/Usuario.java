@@ -118,15 +118,11 @@ public class Usuario {
 	}
 
 	public boolean addVideoToList(ListaReproduccion lr, Video v) {
+		return lr.addVideo(v);
+	}
 
-		// Si el video esta ya en la lista no lo añadimos
-		for (Video video : lr.getVideos())
-			if (video.equals(v))
-				return false;
-
-		// Si no lo añadimos a la lista
-		lr.addVideo(v);
-		return true;
+	public boolean removeVideoToList(ListaReproduccion lr, Video v) {
+		return lr.removeVideo(v);
 	}
 
 	public void addVideoReciente(Video video) {

@@ -139,6 +139,11 @@ public class ControladorAppVideo {
 		adaptadorListaReproduccion.modificarListaReproduccion(listaReproduccion);
 	}
 
+	public void removeVideoToList(ListaReproduccion listaReproduccion, Video video) {
+		usuarioActual.removeVideoToList(listaReproduccion, video);
+		adaptadorListaReproduccion.modificarListaReproduccion(listaReproduccion);
+	}
+
 	public List<ListaReproduccion> getAllListasReproduccion() {
 		return usuarioActual.getListasReproduccion();
 	}

@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 import appvideo.controlador.ControladorAppVideo;
 import appvideo.modelo.Etiqueta;
+import appvideo.modelo.Video;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -33,6 +34,7 @@ public class PanelExplorar extends JPanel {
 	private JTextField textbusqueda;
 	private JPanel panelEtiquetas;
 	private JPanel panelVideos;
+	private PanelMiniaturas panelMiniaturasVideos;
 
 	/**
 	 * Create the panel.
@@ -115,7 +117,8 @@ public class PanelExplorar extends JPanel {
 		gbc_lblEtiquetas.gridy = 2;
 		add(lblEtiquetas, gbc_lblEtiquetas);
 
-		panelVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos());
+		panelMiniaturasVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos());
+		panelVideos = panelMiniaturasVideos;
 		GridBagConstraints gbc_panelVideos = new GridBagConstraints();
 		gbc_panelVideos.gridwidth = 4;
 		gbc_panelVideos.insets = new Insets(0, 0, 5, 5);
@@ -155,7 +158,8 @@ public class PanelExplorar extends JPanel {
 			jcb.setSelected(false);
 
 		panelVideos.removeAll();
-		panelVideos.add(new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos()));
+		panelMiniaturasVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia().getAllVideos());
+		panelVideos.add(panelMiniaturasVideos);
 		revalidate();
 		repaint();
 	}
@@ -169,9 +173,14 @@ public class PanelExplorar extends JPanel {
 				etiquetasSeleccionadas.add(ControladorAppVideo.getUnicaInstancia().getEtiqueta(jcb.getText()));
 
 		panelVideos.removeAll();
-		panelVideos.add(new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia()
-				.getVideosBusqueda(textbusqueda.getText(), etiquetasSeleccionadas)));
+		panelMiniaturasVideos = new PanelMiniaturas(ControladorAppVideo.getUnicaInstancia()
+				.getVideosBusqueda(textbusqueda.getText(), etiquetasSeleccionadas));
+		panelVideos.add(panelMiniaturasVideos);
 		revalidate();
 		repaint();
+	}
+
+	public Video getVideoSeleccionado() {
+		return panelMiniaturasVideos.getVideoSeleccionado();
 	}
 }

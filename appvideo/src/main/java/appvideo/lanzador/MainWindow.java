@@ -156,18 +156,5 @@ public class MainWindow extends JFrame {
 		c.registrarVideo(v7);
 		c.registrarVideo(v8);
 		c.registrarVideo(v9);
-
-		ListaReproduccion lr1 = c.crearListaReproduccion("navantia");
-		c.addVideoToList(lr1, v1);
-		c.addVideoToList(lr1, v2);
-
-		ListaReproduccion lr2 = c.crearListaReproduccion("videojuegos");
-		c.addVideoToList(lr2, v8);
-		c.addVideoToList(lr2, v9);
-
-		ListaReproduccion lr3 = c.crearListaReproduccion("dibujos");
-		c.addVideoToList(lr3, v3);
-		c.addVideoToList(lr3, v4);
-		c.addVideoToList(lr3, v6);
 	}
 }

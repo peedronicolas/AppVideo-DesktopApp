@@ -35,8 +35,22 @@ public class ListaReproduccion {
 		return videos;
 	}
 
-	public void addVideo(Video video) {
+	public boolean addVideo(Video video) {
+
+		if (videos.contains(video))
+			return false;
+
 		videos.add(video);
+		return true;
+	}
+
+	public boolean removeVideo(Video video) {
+
+		if (!videos.contains(video))
+			return false;
+
+		videos.remove(video);
+		return true;
 	}
 
 	@Override

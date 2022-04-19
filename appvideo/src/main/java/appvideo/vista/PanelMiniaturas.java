@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 public class PanelMiniaturas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JList<Video> videoList;
 
 	public PanelMiniaturas(List<Video> videos) {
 
@@ -37,12 +38,16 @@ public class PanelMiniaturas extends JPanel {
 			listModel.addElement(v);
 
 		// Creamos la lista
-		JList<Video> videoList = new JList<>(listModel);
+		videoList = new JList<>(listModel);
 		videoList.setCellRenderer(new VideoListRenderer());
 
 		videoList.addMouseListener(new ActionJList(videoList));
 
 		scrollPaneVideos.setViewportView(videoList);
+	}
+
+	public Video getVideoSeleccionado() {
+		return videoList.getSelectedValue();
 	}
 }
 
