@@ -117,14 +117,6 @@ public class Usuario {
 		return false;
 	}
 
-	public boolean addVideoToList(ListaReproduccion lr, Video v) {
-		return lr.addVideo(v);
-	}
-
-	public boolean removeVideoToList(ListaReproduccion lr, Video v) {
-		return lr.removeVideo(v);
-	}
-
 	public void addVideoReciente(Video video) {
 
 		// Para evitar que hayan repetidos. En caso de que ya este en la lista lo

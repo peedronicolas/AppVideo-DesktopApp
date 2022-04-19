@@ -135,12 +135,12 @@ public class ControladorAppVideo {
 	}
 
 	public void addVideoToList(ListaReproduccion listaReproduccion, Video video) {
-		usuarioActual.addVideoToList(listaReproduccion, video);
+		listaReproduccion.addVideo(video);
 		adaptadorListaReproduccion.modificarListaReproduccion(listaReproduccion);
 	}
 
 	public void removeVideoToList(ListaReproduccion listaReproduccion, Video video) {
-		usuarioActual.removeVideoToList(listaReproduccion, video);
+		listaReproduccion.removeVideo(video);
 		adaptadorListaReproduccion.modificarListaReproduccion(listaReproduccion);
 	}
 
