@@ -45,6 +45,8 @@ public class ControladorAppVideo {
 
 	private Usuario usuarioActual;
 
+	private final static int MAX_VIDEOS_TENDENCIAS = 10;
+
 	// CONSTRUCTOR:
 	private ControladorAppVideo() {
 		inicializarAdaptadores(); // debe ser la primera linea para evitar error de sincronización
@@ -76,6 +78,8 @@ public class ControladorAppVideo {
 		catalogoUsuarios = CatalogoUsuarios.getUnicaInstancia();
 		catalogoVideos = CatalogoVideos.getUnicaInstancia();
 	}
+
+	// ---------------------------- METODOS DE USUARIO ----------------------------
 
 	public boolean registrarusuario(String nombre, String apellidos, Date fNacimiento, String email, String username,
 			String password) {
@@ -115,6 +119,17 @@ public class ControladorAppVideo {
 	public Usuario getUsuarioActual() {
 		return usuarioActual;
 	}
+
+	public Boolean isUserPremium() {
+		return usuarioActual.isPremium();
+	}
+
+	public void covertUserPremium() {
+		usuarioActual.setIsPremium(true);
+		adaptadorUsuario.modificarUsuario(usuarioActual);
+	}
+
+	// ---------------------- METODOS LISTAS DE REPRODUCCION ----------------------
 
 	public ListaReproduccion crearListaReproduccion(String nombre) {
 		ListaReproduccion lr = usuarioActual.crearListaReproduccion(nombre.toUpperCase());
@@ -159,8 +174,14 @@ public class ControladorAppVideo {
 		return usuarioActual.getListaReproduccion(nombre);
 	}
 
-	public List<Video> getVideosRecientes() {
-		return usuarioActual.getVideosRecientes();
+	// ---------------------------- METODOS DE VIDEOS ----------------------------
+
+	public Video getVideo(String titulo) {
+		return catalogoVideos.getVideo(titulo);
+	}
+
+	public List<Video> getAllVideos() {
+		return catalogoVideos.getVideos();
 	}
 
 	public List<Video> getVideosMasVistos() {
@@ -170,7 +191,7 @@ public class ControladorAppVideo {
 
 		return getAllVideos().stream().filter(video -> !(video.getNumReproducciones() == 0))
 				.sorted((v1, v2) -> Integer.compare(v2.getNumReproducciones(), v1.getNumReproducciones()))
-				.collect(Collectors.toList());
+				.limit(MAX_VIDEOS_TENDENCIAS).collect(Collectors.toList());
 	}
 
 	public List<Video> getVideosBusqueda(String texto, LinkedList<Etiqueta> etiquetas) {
@@ -187,30 +208,13 @@ public class ControladorAppVideo {
 		return listaReproduccion.getVideos();
 	}
 
+	public List<Video> getVideosRecientes() {
+		return usuarioActual.getVideosRecientes();
+	}
+
 	public void addVideoReciente(Video video) {
 		usuarioActual.addVideoReciente(video);
 		adaptadorUsuario.modificarUsuario(usuarioActual);
-	}
-
-	public List<Video> getAllVideos() {
-		return catalogoVideos.getVideos();
-	}
-
-	public Video getVideo(String titulo) {
-		return catalogoVideos.getVideo(titulo);
-	}
-
-	public Etiqueta getEtiqueta(String nombre) {
-
-		for (Etiqueta etiqueta : adaptadorEtiqueta.recuperarTodasEtiquetas())
-			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
-				return etiqueta;
-
-		return null;
-	}
-
-	public List<Etiqueta> getAllEtiquetas() {
-		return adaptadorEtiqueta.recuperarTodasEtiquetas();
 	}
 
 	public void registrarVideo(Video v) {
@@ -226,18 +230,24 @@ public class ControladorAppVideo {
 		adaptadorVideo.registrarVideo(v);
 	}
 
-	public Boolean isUserPremium() {
-		return usuarioActual.isPremium();
-	}
-
-	public void covertUserPremium() {
-		usuarioActual.setIsPremium(true);
-		adaptadorUsuario.modificarUsuario(usuarioActual);
-	}
-
 	public void incrementarNumReproduccionesVideo(Video video) {
 		video.incrementarNumReproducciones();
 		adaptadorVideo.modificarVideo(video);
+	}
+
+	// -------------------------- METODOS DE ETIQUETAS --------------------------
+
+	public List<Etiqueta> getAllEtiquetas() {
+		return adaptadorEtiqueta.recuperarTodasEtiquetas();
+	}
+
+	public Etiqueta getEtiqueta(String nombre) {
+
+		for (Etiqueta etiqueta : adaptadorEtiqueta.recuperarTodasEtiquetas())
+			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
+				return etiqueta;
+
+		return null;
 	}
 
 	public boolean addEtiquetaToVideo(Video video, String etiqueta) {
@@ -256,6 +266,8 @@ public class ControladorAppVideo {
 		adaptadorVideo.modificarVideo(video);
 		return true;
 	}
+
+	// ----------------------------- OTROS METODOS -----------------------------
 
 	public void generatePDF(String path) {
 

@@ -89,7 +89,11 @@ class ActionJList extends MouseAdapter {
 
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2) {
+
 			int index = list.locationToIndex(e.getPoint());
+			if (index < 0)
+				return;
+
 			ListModel<Video> dlm = list.getModel();
 			Video video = dlm.getElementAt(index);
 			list.ensureIndexIsVisible(index);

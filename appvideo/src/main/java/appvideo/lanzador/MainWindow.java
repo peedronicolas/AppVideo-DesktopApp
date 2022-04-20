@@ -46,6 +46,7 @@ public class MainWindow extends JFrame {
 
 	// CONSTRUCTOR:
 	private MainWindow() {
+
 		setTitle("AppVideo - PNG");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 800);
@@ -127,6 +128,7 @@ public class MainWindow extends JFrame {
 		v6.addEtiqueta(new Etiqueta("niños"));
 		v6.addEtiqueta(new Etiqueta("cars"));
 		v6.addEtiqueta(new Etiqueta("entretenimiento"));
+		v6.addEtiqueta(new Etiqueta("carreras"));
 
 		Video v7 = new Video("Paco de Lucía y Camarón de la Isla por bulerías",
 				"https://www.youtube.com/watch?v=YSAq2oJB53E");
@@ -147,6 +149,20 @@ public class MainWindow extends JFrame {
 		v9.addEtiqueta(new Etiqueta("Call Of Duty"));
 		v9.addEtiqueta(new Etiqueta("WillyRex"));
 
+		Video v10 = new Video("Nunca apagues la luz - Tráiler Oficial", "https://www.youtube.com/watch?v=w1VXHtIqrYU");
+		v10.addEtiqueta(new Etiqueta("pelicula"));
+		v10.addEtiqueta(new Etiqueta("miedo"));
+		v10.addEtiqueta(new Etiqueta("trailer"));
+
+		Video v11 = new Video("Fast & Furious 9 – Tráiler Oficial", "https://www.youtube.com/watch?v=lDpuUg5_DAE");
+		v11.addEtiqueta(new Etiqueta("pelicula"));
+		v11.addEtiqueta(new Etiqueta("carreras"));
+		v11.addEtiqueta(new Etiqueta("trailer"));
+
+		Video v12 = new Video("David Guetta Feat. Kid Cudi - Memories", "https://www.youtube.com/watch?v=NUVCQXMUVnI");
+		v12.addEtiqueta(new Etiqueta("musica"));
+		v12.addEtiqueta(new Etiqueta("electronica"));
+
 		c.registrarVideo(v1);
 		c.registrarVideo(v2);
 		c.registrarVideo(v3);
@@ -156,5 +172,8 @@ public class MainWindow extends JFrame {
 		c.registrarVideo(v7);
 		c.registrarVideo(v8);
 		c.registrarVideo(v9);
+		c.registrarVideo(v10);
+		c.registrarVideo(v11);
+		c.registrarVideo(v12);
 	}
 }
