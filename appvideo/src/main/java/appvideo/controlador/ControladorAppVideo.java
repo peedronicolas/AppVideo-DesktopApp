@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import appvideo.modelo.CatalogoUsuarios;
 import appvideo.modelo.CatalogoVideos;
 import appvideo.modelo.Etiqueta;
+import appvideo.modelo.FiltrosName;
 import appvideo.modelo.ListaReproduccion;
 import appvideo.modelo.Usuario;
 import appvideo.modelo.Video;
@@ -181,7 +182,7 @@ public class ControladorAppVideo {
 	}
 
 	public List<Video> getAllVideos() {
-		return catalogoVideos.getVideos();
+		return usuarioActual.getFiltroVideos().aplicarFiltroVideos(catalogoVideos.getVideos());
 	}
 
 	public List<Video> getVideosMasVistos() {
@@ -189,7 +190,7 @@ public class ControladorAppVideo {
 		// Obtenemos los videos del sistema, quitamos los que no han sido reproducidos
 		// y ordenamos de mayor a menor segun el num de reproducciones
 
-		return getAllVideos().stream().filter(video -> !(video.getNumReproducciones() == 0))
+		return catalogoVideos.getVideos().stream().filter(video -> !(video.getNumReproducciones() == 0))
 				.sorted((v1, v2) -> Integer.compare(v2.getNumReproducciones(), v1.getNumReproducciones()))
 				.limit(MAX_VIDEOS_TENDENCIAS).collect(Collectors.toList());
 	}
@@ -265,6 +266,11 @@ public class ControladorAppVideo {
 	}
 
 	// ----------------------------- OTROS METODOS -----------------------------
+
+	public void setFiltroBusquedaUser(FiltrosName filtroName) {
+		usuarioActual.setFiltro(filtroName);
+		adaptadorUsuario.modificarUsuario(usuarioActual);
+	}
 
 	public void generatePDF(String path) {
 

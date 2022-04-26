@@ -1,5 +1,8 @@
 package appvideo.modelo;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +27,12 @@ public class Usuario {
 	private LinkedList<ListaReproduccion> listasReproduccion;
 	private LinkedList<Video> videosRecientes;
 
+	private Filtro filtroVideos;
+
 	// CONSTRUCTOR:
 	public Usuario(String nombre, String apellidos, Date fNacimiento, String email, String username, String password,
 			Boolean isPremium) {
+
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fNacimiento = fNacimiento;
@@ -37,6 +43,7 @@ public class Usuario {
 
 		this.listasReproduccion = new LinkedList<>();
 		this.videosRecientes = new LinkedList<>();
+		this.filtroVideos = new FiltroSinFiltro();
 	}
 
 	// METODOS:
@@ -72,12 +79,60 @@ public class Usuario {
 		return password;
 	}
 
+	public Filtro getFiltroVideos() {
+		return filtroVideos;
+	}
+
+	public void setFiltro(FiltrosName filtroName) {
+
+		if (filtroName == FiltrosName.MENORES)
+			filtroVideos = new FiltroAdultos();
+
+		else if (filtroName == FiltrosName.MIS_LISTAS)
+			filtroVideos = new FiltroMisListas();
+
+		else if (filtroName == FiltrosName.IMPOPULARES)
+			filtroVideos = new FiltroImpopulares();
+
+		else if (filtroName == FiltrosName.SIN_FILTRO)
+			filtroVideos = new FiltroSinFiltro();
+
+		else {
+			System.err.println("Filtro desconocido, se establece el por defecto.");
+			filtroVideos = new FiltroSinFiltro();
+		}
+	}
+
+	public void setFiltro(String filtroName) {
+
+		for (FiltrosName fn : FiltrosName.values())
+			if (fn.toString().equals(filtroName)) {
+				setFiltro(fn);
+				return;
+			}
+
+		setFiltro(FiltrosName.SIN_FILTRO);
+		System.err.println("Filtro desconocido, se establece el por defecto.");
+	}
+
 	public Boolean isPremium() {
 		return isPremium;
 	}
 
 	public void setIsPremium(Boolean isPremium) {
 		this.isPremium = isPremium;
+	}
+
+	public boolean isMayorEdad() {
+
+		Period periodo = Period.between(fNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+				LocalDate.now());
+
+		int years = (int) periodo.getYears();
+		if (years >= 18)
+			return true;
+
+		return false;
 	}
 
 	public List<ListaReproduccion> getListasReproduccion() {

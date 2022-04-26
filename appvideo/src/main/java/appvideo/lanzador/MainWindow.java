@@ -153,6 +153,7 @@ public class MainWindow extends JFrame {
 		v10.addEtiqueta(new Etiqueta("pelicula"));
 		v10.addEtiqueta(new Etiqueta("miedo"));
 		v10.addEtiqueta(new Etiqueta("trailer"));
+		v10.addEtiqueta(new Etiqueta("adultos"));
 
 		Video v11 = new Video("Fast & Furious 9 – Tráiler Oficial", "https://www.youtube.com/watch?v=lDpuUg5_DAE");
 		v11.addEtiqueta(new Etiqueta("pelicula"));
@@ -162,6 +163,10 @@ public class MainWindow extends JFrame {
 		Video v12 = new Video("David Guetta Feat. Kid Cudi - Memories", "https://www.youtube.com/watch?v=NUVCQXMUVnI");
 		v12.addEtiqueta(new Etiqueta("musica"));
 		v12.addEtiqueta(new Etiqueta("electronica"));
+
+		Video v13 = new Video("Mini Uzi contra barril de agua", "https://www.youtube.com/watch?v=6rZtIyEFJpE");
+		v13.addEtiqueta(new Etiqueta("gun"));
+		v13.addEtiqueta(new Etiqueta("adultos"));
 
 		c.registrarVideo(v1);
 		c.registrarVideo(v2);
@@ -175,5 +180,6 @@ public class MainWindow extends JFrame {
 		c.registrarVideo(v10);
 		c.registrarVideo(v11);
 		c.registrarVideo(v12);
+		c.registrarVideo(v13);
 	}
 }

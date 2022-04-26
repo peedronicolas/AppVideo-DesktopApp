@@ -76,6 +76,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		props.add(
 				new Propiedad("listasReproduccion", obtenerCodigosListasReproduccion(usuario.getListasReproduccion())));
 		props.add(new Propiedad("videosRecientes", obtenerCodigosVideos(usuario.getVideosRecientes())));
+		props.add(new Propiedad("filtroVideo", usuario.getFiltroVideos().getName().toString()));
 		eu.setPropiedades(props);
 
 		// Registrar entidad
@@ -134,6 +135,10 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 				prop.setValor(videosRecientes);
 			}
 
+			else if (prop.getNombre().equals("filtroVideo")) {
+				prop.setValor(usuario.getFiltroVideos().getName().toString());
+			}
+
 			servPersistencia.modificarPropiedad(prop);
 		}
 	}
@@ -160,8 +165,11 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		String username = servPersistencia.recuperarPropiedadEntidad(eu, "username");
 		String password = servPersistencia.recuperarPropiedadEntidad(eu, "password");
 		boolean isPremium = Boolean.parseBoolean(servPersistencia.recuperarPropiedadEntidad(eu, "isPremium"));
+		String filtroVideo = servPersistencia.recuperarPropiedadEntidad(eu, "filtroVideo");
+
 		Usuario user = new Usuario(nombre, apellidos, fNacimiento, email, username, password, isPremium);
 		user.setCodigo(codigo);
+		user.setFiltro(filtroVideo);
 
 		// IMPORTANTE: Añadir el usuario al pool antes de llamar a otros adaptadores
 		PoolDAO.getUnicaInstancia().addObjeto(codigo, user);
