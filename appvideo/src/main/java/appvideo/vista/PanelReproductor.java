@@ -193,7 +193,8 @@ public class PanelReproductor extends JPanel {
 
 		if (!etqName.equals("")) {
 
-			boolean isRegistrada = ControladorAppVideo.getUnicaInstancia().addEtiquetaToVideo(videoActual, etqName);
+			Etiqueta etiqueta = ControladorAppVideo.getUnicaInstancia().getEtiqueta(etqName);
+			boolean isRegistrada = ControladorAppVideo.getUnicaInstancia().addEtiquetaToVideo(videoActual, etiqueta);
 
 			if (isRegistrada == false) {
 				JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(),

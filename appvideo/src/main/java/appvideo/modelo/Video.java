@@ -59,8 +59,13 @@ public class Video {
 		return etiquetas;
 	}
 
-	public void addEtiqueta(Etiqueta etiqueta) {
+	public boolean addEtiqueta(Etiqueta etiqueta) {
+
+		if (etiquetas.contains(etiqueta))
+			return false;
+
 		etiquetas.add(etiqueta);
+		return true;
 	}
 
 	@Override

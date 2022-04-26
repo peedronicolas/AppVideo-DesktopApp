@@ -243,26 +243,23 @@ public class ControladorAppVideo {
 
 	public Etiqueta getEtiqueta(String nombre) {
 
-		for (Etiqueta etiqueta : adaptadorEtiqueta.recuperarTodasEtiquetas())
+		for (Etiqueta etiqueta : getAllEtiquetas())
 			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
 				return etiqueta;
 
-		return null;
+		// Si la etiqueta no esta registrada en el sistema, la creamos, la regutramos y
+		// la devolvemos
+		Etiqueta etiqueta = new Etiqueta(nombre);
+		adaptadorEtiqueta.registrarEtiqueta(etiqueta);
+		return etiqueta;
 	}
 
-	public boolean addEtiquetaToVideo(Video video, String etiqueta) {
+	public boolean addEtiquetaToVideo(Video video, Etiqueta etiqueta) {
 
-		Etiqueta etq = getEtiqueta(etiqueta);
-
-		if (video.getEtiquetas().contains(etq))
+		boolean isRegistrada = video.addEtiqueta(etiqueta);
+		if (!isRegistrada)
 			return false;
 
-		if (etq == null) {
-			etq = new Etiqueta(etiqueta);
-			adaptadorEtiqueta.registrarEtiqueta(etq);
-		}
-
-		video.addEtiqueta(etq);
 		adaptadorVideo.modificarVideo(video);
 		return true;
 	}
