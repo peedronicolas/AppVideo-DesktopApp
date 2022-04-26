@@ -168,6 +168,10 @@ public class MainWindow extends JFrame {
 		v13.addEtiqueta(new Etiqueta("gun"));
 		v13.addEtiqueta(new Etiqueta("adultos"));
 
+		Video v14 = new Video("Videos Graciosos", "https://www.youtube.com/watch?v=F8xqK4RXtUo");
+		v14.addEtiqueta(new Etiqueta("risas"));
+		v14.addEtiqueta(new Etiqueta("entretenimiento"));
+
 		c.registrarVideo(v1);
 		c.registrarVideo(v2);
 		c.registrarVideo(v3);
@@ -181,5 +185,6 @@ public class MainWindow extends JFrame {
 		c.registrarVideo(v11);
 		c.registrarVideo(v12);
 		c.registrarVideo(v13);
+		c.registrarVideo(v14);
 	}
 }

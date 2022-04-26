@@ -97,6 +97,9 @@ public class Usuario {
 		else if (filtroName == FiltrosName.SIN_FILTRO)
 			filtroVideos = new FiltroSinFiltro();
 
+		else if (filtroName == FiltrosName.NOMBRES_LARGOS)
+			filtroVideos = new FiltroNombresLargos();
+
 		else {
 			System.err.println("Filtro desconocido, se establece el por defecto.");
 			filtroVideos = new FiltroSinFiltro();

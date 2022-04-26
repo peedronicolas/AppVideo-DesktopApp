@@ -1,5 +1,5 @@
 package appvideo.modelo;
 
 public enum FiltrosName {
-	SIN_FILTRO, MENORES, MIS_LISTAS, IMPOPULARES;
+	SIN_FILTRO, MENORES, MIS_LISTAS, IMPOPULARES, NOMBRES_LARGOS;
 }

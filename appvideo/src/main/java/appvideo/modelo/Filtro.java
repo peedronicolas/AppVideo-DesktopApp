@@ -82,3 +82,17 @@ class FiltroMisListas implements Filtro {
 		return FiltrosName.MIS_LISTAS;
 	}
 }
+
+// Elimina aquellos videos que tienen mas de 16 caracteres de longitud en el titulo
+class FiltroNombresLargos implements Filtro {
+
+	@Override
+	public List<Video> aplicarFiltroVideos(List<Video> videos) {
+		return videos.stream().filter(video -> video.getTitulo().length() <= 16).collect(Collectors.toList());
+	}
+
+	@Override
+	public FiltrosName getName() {
+		return FiltrosName.NOMBRES_LARGOS;
+	}
+}
