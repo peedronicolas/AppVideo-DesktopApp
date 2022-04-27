@@ -248,11 +248,10 @@ public class ControladorAppVideo {
 			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
 				return etiqueta;
 
-		// Si la etiqueta no esta registrada en el sistema, la creamos, la regutramos y
-		// la devolvemos
-		Etiqueta etiqueta = new Etiqueta(nombre);
-		adaptadorEtiqueta.registrarEtiqueta(etiqueta);
-		return etiqueta;
+		// Si la etiqueta no esta registrada en el sistema, la creamos y la registramos
+		adaptadorEtiqueta.registrarEtiqueta(new Etiqueta(nombre));
+
+		return getEtiqueta(nombre);
 	}
 
 	public boolean addEtiquetaToVideo(Video video, Etiqueta etiqueta) {
