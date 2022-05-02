@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.google.gson.GsonBuilder;
+
 /**
  * <p>
  * Clase Java para anonymous complex type.
@@ -70,5 +72,10 @@ public class Videos {
 			video = new ArrayList<Video>();
 		}
 		return this.video;
+	}
+
+	@Override
+	public String toString() {
+		return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }

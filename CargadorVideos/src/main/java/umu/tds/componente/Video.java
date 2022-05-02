@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.google.gson.GsonBuilder;
+
 /**
  * <p>
  * Clase Java para Video complex type.
@@ -116,5 +118,10 @@ public class Video {
 	 */
 	public void setTitulo(String value) {
 		this.titulo = value;
+	}
+
+	@Override
+	public String toString() {
+		return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }
