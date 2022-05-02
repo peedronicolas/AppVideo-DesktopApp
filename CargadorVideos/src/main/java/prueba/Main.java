@@ -1,5 +1,6 @@
 package prueba;
 
+import java.io.File;
 import java.util.EventObject;
 
 import umu.tds.componente.CargadorVideos;
@@ -30,8 +31,11 @@ public class Main implements VideosListener {
 	public static void main(String[] args) throws InterruptedException {
 
 		new Main();
-		
-		cargadorVideos.setVideos("/home/pedro/Escritorio/videos.xml");
-		cargadorVideos.setVideos("/home/pedro/Escritorio/videos2.xml");
+
+		File f1 = new File("/home/pedro/Escritorio/videos.xml");
+		File f2 = new File("/home/pedro/Escritorio/videos2.xml");
+
+		cargadorVideos.cargarVideos(f1);
+		cargadorVideos.cargarVideos(f2);
 	}
 }

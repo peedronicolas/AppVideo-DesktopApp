@@ -1,8 +1,9 @@
 package umu.tds.componente;
 
+import java.io.File;
 import java.util.Vector;
 
-public class CargadorVideos {
+public class CargadorVideos implements IBuscarVideos {
 
 	private Vector<VideosListener> videosListeners = new Vector<>();
 	private Videos videos;
@@ -11,10 +12,11 @@ public class CargadorVideos {
 
 	}
 
-	public void setVideos(String fichero) {
+	@Override
+	public void cargarVideos(File xml) {
 
 		Videos videosAnteriores = this.videos;
-		videos = MapperVideosXMLtoJava.cargarVideos(fichero);
+		videos = MapperVideosXMLtoJava.cargarVideos(xml.getAbsolutePath());
 
 		if (videosAnteriores != videos) {
 			VideosEvent evento = new VideosEvent(this, videosAnteriores, videos);
