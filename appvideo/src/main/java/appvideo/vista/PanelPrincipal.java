@@ -99,11 +99,8 @@ public class PanelPrincipal extends JPanel {
 				jfc.setFileFilter(filtro);
 				if (jfc.showOpenDialog(MainWindow.getUnicaInstancia()) == JFileChooser.APPROVE_OPTION) {
 
-					File fileXml = jfc.getSelectedFile();
-
-					// Cambiar por la llamada al controlador para cargar las nuevas canciones del
-					// fichero.
-					System.out.println(fileXml.getAbsolutePath());
+					File fileXML = jfc.getSelectedFile();
+					ControladorAppVideo.getUnicaInstancia().cargarVideos(fileXML);
 				}
 			}
 		});

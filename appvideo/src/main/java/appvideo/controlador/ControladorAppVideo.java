@@ -1,8 +1,10 @@
 package appvideo.controlador;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +32,11 @@ import appvideo.persistencia.IAdaptadorEtiquetaDAO;
 import appvideo.persistencia.IAdaptadorListaReproduccionDAO;
 import appvideo.persistencia.IAdaptadorUsuarioDAO;
 import appvideo.persistencia.IAdaptadorVideoDAO;
+import umu.tds.componente.CargadorVideos;
+import umu.tds.componente.VideosEvent;
+import umu.tds.componente.VideosListener;
 
-public class ControladorAppVideo {
+public class ControladorAppVideo implements VideosListener {
 
 	// ATRIBUTOS:
 	private static ControladorAppVideo unicaInstancia;
@@ -48,10 +53,15 @@ public class ControladorAppVideo {
 
 	private final static int MAX_VIDEOS_TENDENCIAS = 10;
 
+	private CargadorVideos cargadorVideos;
+
 	// CONSTRUCTOR:
 	private ControladorAppVideo() {
 		inicializarAdaptadores(); // debe ser la primera linea para evitar error de sincronización
 		inicializarCatalogos();
+
+		cargadorVideos = new CargadorVideos();
+		cargadorVideos.addVideosListener(this);
 	}
 
 	// METODOS:
@@ -326,6 +336,18 @@ public class ControladorAppVideo {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void cargarVideos(File fileXML) {
+		cargadorVideos.cargarVideos(fileXML);
+	}
+
+	@Override
+	public void nuevosVideos(EventObject arg0) {
+		if (arg0 instanceof VideosEvent) {
+
+			System.out.println(cargadorVideos.getVideos());
 		}
 	}
 }
