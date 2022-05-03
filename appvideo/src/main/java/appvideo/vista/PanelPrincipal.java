@@ -2,6 +2,7 @@ package appvideo.vista;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,14 +12,21 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.FlowLayout;
 import javax.swing.JSeparator;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import appvideo.controlador.ControladorAppVideo;
 import appvideo.lanzador.MainWindow;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
+import pulsador.Luz;
+import pulsador.IEncendidoListener;
+import java.util.EventObject;
 
 public class PanelPrincipal extends JPanel {
 
@@ -40,9 +48,10 @@ public class PanelPrincipal extends JPanel {
 		JPanel panelBarraNavegacion = new JPanel();
 		add(panelBarraNavegacion, BorderLayout.NORTH);
 		GridBagLayout gbl_panelBarraNavegacion = new GridBagLayout();
-		gbl_panelBarraNavegacion.columnWidths = new int[] { 20, 0, 0, 10, 10, 0, 20, 0 };
+		gbl_panelBarraNavegacion.columnWidths = new int[] { 20, 0, 0, 10, 10, 0, 3, 0, 20, 0 };
 		gbl_panelBarraNavegacion.rowHeights = new int[] { 20, 0, 20, 0, 0, 0, 20, 0 };
-		gbl_panelBarraNavegacion.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelBarraNavegacion.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_panelBarraNavegacion.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelBarraNavegacion.setLayout(gbl_panelBarraNavegacion);
 
@@ -80,10 +89,36 @@ public class PanelPrincipal extends JPanel {
 		gbc_btnLogout.gridy = 1;
 		panelBarraNavegacion.add(btnLogout, gbc_btnLogout);
 
+		Luz luz = new Luz();
+		luz.addEncendidoListener(new IEncendidoListener() {
+			public void enteradoCambioEncendido(EventObject arg0) {
+
+				JFileChooser jfc = new JFileChooser();
+				jfc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos xml (.xml)", "xml");
+				jfc.setFileFilter(filtro);
+				if (jfc.showOpenDialog(MainWindow.getUnicaInstancia()) == JFileChooser.APPROVE_OPTION) {
+
+					File fileXml = jfc.getSelectedFile();
+
+					// Cambiar por la llamada al controlador para cargar las nuevas canciones del
+					// fichero.
+					System.out.println(fileXml.getAbsolutePath());
+				}
+			}
+		});
+		luz.setColor(Color.YELLOW);
+
+		GridBagConstraints gbc_luz = new GridBagConstraints();
+		gbc_luz.insets = new Insets(0, 0, 5, 5);
+		gbc_luz.gridx = 7;
+		gbc_luz.gridy = 1;
+		panelBarraNavegacion.add(luz, gbc_luz);
+
 		JSeparator separator_1 = new JSeparator();
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
 		gbc_separator_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_separator_1.gridwidth = 7;
+		gbc_separator_1.gridwidth = 9;
 		gbc_separator_1.insets = new Insets(0, 0, 5, 0);
 		gbc_separator_1.gridx = 0;
 		gbc_separator_1.gridy = 3;
@@ -167,14 +202,14 @@ public class PanelPrincipal extends JPanel {
 		gbc_btnPremium.anchor = GridBagConstraints.EAST;
 		gbc_btnPremium.gridwidth = 3;
 		gbc_btnPremium.insets = new Insets(0, 0, 5, 5);
-		gbc_btnPremium.gridx = 3;
+		gbc_btnPremium.gridx = 5;
 		gbc_btnPremium.gridy = 4;
 		panelBarraNavegacion.add(btnPremium, gbc_btnPremium);
 
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.HORIZONTAL;
-		gbc_separator.gridwidth = 7;
+		gbc_separator.gridwidth = 9;
 		gbc_separator.insets = new Insets(0, 0, 5, 0);
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 5;
