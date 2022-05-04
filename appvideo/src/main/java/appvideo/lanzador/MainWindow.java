@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
 		setTitle("AppVideo - PNG");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 800);
-		setMinimumSize(new Dimension(1100, 700));
+		setMinimumSize(new Dimension(1100, 800));
 
 		// TODO Cambiar a panel login para produccion
 		showPanelPrincipal();

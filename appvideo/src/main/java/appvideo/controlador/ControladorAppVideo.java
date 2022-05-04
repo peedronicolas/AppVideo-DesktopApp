@@ -228,19 +228,6 @@ public class ControladorAppVideo implements VideosListener {
 		adaptadorUsuario.modificarUsuario(usuarioActual);
 	}
 
-	public void registrarVideo(Video v) {
-
-		Etiqueta e1 = null;
-		for (Etiqueta e : v.getEtiquetas()) {
-			e1 = getEtiqueta(e.getNombre());
-			if (e1 != null)
-				e.setCodigo(e1.getCodigo());
-		}
-
-		catalogoVideos.addVideo(v);
-		adaptadorVideo.registrarVideo(v);
-	}
-
 	public void incrementarNumReproduccionesVideo(Video video) {
 		video.incrementarNumReproducciones();
 		adaptadorVideo.modificarVideo(video);
@@ -347,7 +334,17 @@ public class ControladorAppVideo implements VideosListener {
 	public void nuevosVideos(EventObject arg0) {
 		if (arg0 instanceof VideosEvent) {
 
-			System.out.println(cargadorVideos.getVideos());
+			for (umu.tds.componente.Video video : cargadorVideos.getVideos().getVideo()) {
+
+				if (getVideo(video.getTitulo()) == null) {
+					Video v = new Video(video.getTitulo(), video.getURL());
+					for (String etiqueta : video.getEtiqueta())
+						v.addEtiqueta(getEtiqueta(etiqueta));
+
+					catalogoVideos.addVideo(v);
+					adaptadorVideo.registrarVideo(v);
+				}
+			}
 		}
 	}
 }

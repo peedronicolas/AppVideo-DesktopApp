@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<videos xmlns="http://www.tds.es/videos" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+	xs:schemaLocation="http://www.tds.es/videos videos.xsd">
+	
+	<video titulo="Invasion">
+		<URL><![CDATA[https://www.youtube.com/watch?v=DlaHxL3mHAU]]></URL>
+		<etiqueta>Series</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+	</video>
+
+	<video titulo="Technology Is Reinventing Humanity - Jordan Nguyen">
+		<URL><![CDATA[https://www.youtube.com/watch?v=VxuWIXdYYyQ]]></URL>
+		<etiqueta>Tecnologia</etiqueta>
+		<etiqueta>Speech</etiqueta>
+	</video>
+
+	<video titulo="House of Gucci">
+		<URL><![CDATA[https://www.youtube.com/watch?v=eGNnpVKxV6s]]></URL>
+		<etiqueta>Pelicula</etiqueta>
+		<etiqueta>Cine</etiqueta>
+	</video>
+	
+	<video titulo="Arctic Monkeys - Do I Wanna Know?">
+		<URL><![CDATA[https://www.youtube.com/watch?v=bpOSxM0rNPM]]></URL>
+		<etiqueta>Musica</etiqueta>
+	</video>
+	
+	<video titulo="S81, traslado a la fosa del Syncrolift">
+		<URL><![CDATA[https://www.youtube.com/watch?v=Fnux6V5679g]]></URL>
+		<etiqueta>Navantia</etiqueta>
+		<etiqueta>Submarino</etiqueta>
+		<etiqueta>Armada</etiqueta>
+	</video>
+	
+	<video titulo="Pruebas de mar corbeta AL-JUBAIL">
+		<URL><![CDATA[https://www.youtube.com/watch?v=bhdbbWTErpE]]></URL>
+		<etiqueta>Navantia</etiqueta>
+		<etiqueta>Submarino</etiqueta>
+		<etiqueta>Fragata</etiqueta>
+	</video>
+	
+	<video titulo="POCOYÓ en ESPAÑOL - Especial 2020">
+		<URL><![CDATA[https://www.youtube.com/watch?v=g8KuwGC0QYQ]]></URL>
+		<etiqueta>Series</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+		<etiqueta>Niños</etiqueta>
+	</video>
+	
+	<video titulo="Separación Rápida | Ben 10">
+		<URL><![CDATA[https://www.youtube.com/watch?v=Vu89nxRhJu0]]></URL>
+		<etiqueta>Series</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+		<etiqueta>Niños</etiqueta>
+	</video>
+	
+	<video titulo="Shouse - Love Tonight">
+		<URL><![CDATA[https://www.youtube.com/watch?v=V0woPCb5xk8]]></URL>
+		<etiqueta>Musica</etiqueta>
+		<etiqueta>Electronica</etiqueta>
+	</video>
+	
+	<video titulo="A equipe de Relâmpago McQueen">
+		<URL><![CDATA[https://www.youtube.com/watch?v=T3MYVPAMiac]]></URL>
+		<etiqueta>Series</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+		<etiqueta>Niños</etiqueta>
+		<etiqueta>Carreras</etiqueta>
+	</video>
+	
+	<video titulo="Paco de Lucía y Camarón de la Isla por bulerías">
+		<URL><![CDATA[https://www.youtube.com/watch?v=YSAq2oJB53E]]></URL>
+		<etiqueta>Musica</etiqueta>
+		<etiqueta>Flamenco</etiqueta>
+		<etiqueta>Guitarra Española</etiqueta>
+	</video>
+	
+	<video titulo="FORTNITE - D3stri">
+		<URL><![CDATA[https://www.youtube.com/watch?v=uFGpLJMYulI]]></URL>
+		<etiqueta>Entretenimiento</etiqueta>
+		<etiqueta>Videojuegos</etiqueta>
+	</video>
+	
+	<video titulo="TROLLEANDO AL MÁS CAMPERO de Modern Warfare 3">
+		<URL><![CDATA[https://www.youtube.com/watch?v=xqOQwJAMz2o]]></URL>
+		<etiqueta>Entretenimiento</etiqueta>
+		<etiqueta>Videojuegos</etiqueta>
+	</video>
+	
+	<video titulo="Nunca apagues la luz - Tráiler Oficial">
+		<URL><![CDATA[https://www.youtube.com/watch?v=w1VXHtIqrYU]]></URL>
+		<etiqueta>Pelicula</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+		<etiqueta>Adultos</etiqueta>
+	</video>
+	
+	<video titulo="Fast and Furious 9 – Tráiler Oficial">
+		<URL><![CDATA[https://www.youtube.com/watch?v=lDpuUg5_DAE]]></URL>
+		<etiqueta>Pelicula</etiqueta>
+		<etiqueta>AppleTV</etiqueta>
+		<etiqueta>Carreras</etiqueta>
+	</video>
+	
+	<video titulo="David Guetta Feat. Kid Cudi - Memories">
+		<URL><![CDATA[https://www.youtube.com/watch?v=NUVCQXMUVnI]]></URL>
+		<etiqueta>Musica</etiqueta>
+		<etiqueta>Electronica</etiqueta>
+	</video>
+	
+	<video titulo="Mini Uzi contra barril de agua">
+		<URL><![CDATA[https://www.youtube.com/watch?v=6rZtIyEFJpE]]></URL>
+		<etiqueta>Armas</etiqueta>
+		<etiqueta>Adultos</etiqueta>
+	</video>
+	
+	<video titulo="Videos Graciosos">
+		<URL><![CDATA[https://www.youtube.com/watch?v=F8xqK4RXtUo]]></URL>
+		<etiqueta>Entretenimiento</etiqueta>
+	</video>
+	
+	<video titulo="Ataques rusos en Ucrania">
+		<URL><![CDATA[https://www.youtube.com/watch?v=wmXZuJ0n8XE]]></URL>
+		<etiqueta>Noticias</etiqueta>
+		<etiqueta>Adultos</etiqueta>
+	</video>
+	
+	<video titulo="¿Qué es un ataque DDoS?">
+		<URL><![CDATA[https://www.youtube.com/watch?v=7xGdz5Li9Sw]]></URL>
+		<etiqueta>Tecnologia</etiqueta>
+		<etiqueta>Ciberseguridad</etiqueta>
+	</video>
+	
+	<video titulo="How To Build The Most Modern Underground Swimming Pools">
+		<URL><![CDATA[https://www.youtube.com/watch?v=NT0EmAgP-_k]]></URL>
+		<etiqueta>Entretenimiento</etiqueta>
+	</video>
+	
+	<video titulo="PEGASUS | EL SOFTWARE DE ESPIONAJE MÁS PELIGROSO DEL MUNDO">
+		<URL><![CDATA[https://www.youtube.com/watch?v=rABIDoDKGB0]]></URL>
+		<etiqueta>Tecnologia</etiqueta>
+		<etiqueta>Ciberseguridad</etiqueta>
+	</video>
+	
+	<video titulo="El mejor vídeo de la Alhambra de Granada">
+		<URL><![CDATA[https://www.youtube.com/watch?v=kKIf8O7OddQ]]></URL>
+		<etiqueta>Entretenimiento</etiqueta>
+	</video>
+	
+	<video titulo="F/A-18 Carrier break and landing">
+		<URL><![CDATA[https://www.youtube.com/watch?v=G2Y82rkxzY0]]></URL>
+		<etiqueta>Armada</etiqueta>
+	</video>
+
+</videos>

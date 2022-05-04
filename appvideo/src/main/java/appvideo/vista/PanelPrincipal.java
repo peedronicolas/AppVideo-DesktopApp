@@ -101,6 +101,8 @@ public class PanelPrincipal extends JPanel {
 
 					File fileXML = jfc.getSelectedFile();
 					ControladorAppVideo.getUnicaInstancia().cargarVideos(fileXML);
+					cambiarPanelPrincipalActual(new PanelExplorar());
+					JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(), "Archivo XML cargado correctamente.");
 				}
 			}
 		});
