@@ -45,7 +45,9 @@ public class AdaptadorListaReproduccionTDS implements IAdaptadorListaReproduccio
 			return;
 
 		// Registrar primero los atributos que son objetos
-		// Registrar los videos
+		// Registrar los videos, aunque cuando un video se añade a una lista en teoria
+		// es porque esta registrado ya en el sistema, por lo que el metodo no se
+		// llegara a ejecutar completamente
 		AdaptadorVideoTDS adaptadorV = AdaptadorVideoTDS.getUnicaInstancia();
 		for (Video v : listaReproduccion.getVideos())
 			adaptadorV.registrarVideo(v);
@@ -72,7 +74,7 @@ public class AdaptadorListaReproduccionTDS implements IAdaptadorListaReproduccio
 		Entidad elr;
 
 		// En principio cuando se borra una lista de reproduccion no se borran los
-		// videos asocialos a ella
+		// videos del sistema asociados a ella
 
 		elr = servPersistencia.recuperarEntidad(listaReproduccion.getCodigo());
 		servPersistencia.borrarEntidad(elr);

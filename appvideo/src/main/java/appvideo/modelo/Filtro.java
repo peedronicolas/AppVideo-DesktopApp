@@ -16,7 +16,7 @@ public interface Filtro {
 	public List<Video> aplicarFiltroVideos(List<Video> videos);
 }
 
-// Devolvemos toda la sita de videos sin eliminar ninguno
+// Devolvemos toda la lista de videos sin eliminar ninguno
 class FiltroSinFiltro implements Filtro {
 
 	@Override

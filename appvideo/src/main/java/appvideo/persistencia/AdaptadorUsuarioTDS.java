@@ -56,6 +56,8 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 			adaptadorLR.registrarListaReproduccion(lr);
 
 		// Registrar los videos recientes
+		// En teoria nunca se ejecura completo, pues si es un video reciente ya debe
+		// estar registrado en el sistema
 		AdaptadorVideoTDS adaptadorV = AdaptadorVideoTDS.getUnicaInstancia();
 		for (Video v : usuario.getVideosRecientes())
 			adaptadorV.registrarVideo(v);

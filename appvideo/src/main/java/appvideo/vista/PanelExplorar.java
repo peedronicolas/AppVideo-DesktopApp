@@ -29,7 +29,6 @@ public class PanelExplorar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private ControladorAppVideo controlador = ControladorAppVideo.getUnicaInstancia();
 	private LinkedList<JCheckBox> listCheckBoxEtiquetas = new LinkedList<>();
 	private JTextField textbusqueda;
 	private JPanel panelEtiquetas;
@@ -148,7 +147,7 @@ public class PanelExplorar extends JPanel {
 	}
 
 	private void createListCheckBoxEtiquetas() {
-		for (Etiqueta etiqueta : controlador.getAllEtiquetas())
+		for (Etiqueta etiqueta : ControladorAppVideo.getUnicaInstancia().getAllEtiquetas())
 			listCheckBoxEtiquetas.add(new JCheckBox(etiqueta.getNombre()));
 	}
 

@@ -3,6 +3,7 @@ package appvideo.controlador;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.EventObject;
 import java.util.LinkedList;
@@ -171,14 +172,11 @@ public class ControladorAppVideo implements VideosListener {
 	}
 
 	public List<ListaReproduccion> getAllListasReproduccion() {
-		return usuarioActual.getListasReproduccion();
-	}
 
-	public List<String> getAllListasReproduccionNames() {
-		LinkedList<String> nombresListasReproduccion = new LinkedList<>();
-		for (ListaReproduccion lr : getAllListasReproduccion())
-			nombresListasReproduccion.add(lr.getNombre());
-		return nombresListasReproduccion;
+		// Devolvemos todas las listas de reproduccion ordenadas por registro mas
+		// reciente
+		return usuarioActual.getListasReproduccion().stream()
+				.sorted((lr1, lr2) -> Long.compare(lr2.getCodigo(), lr1.getCodigo())).collect(Collectors.toList());
 	}
 
 	public ListaReproduccion getListaReproduccion(String nombre) {
@@ -198,7 +196,8 @@ public class ControladorAppVideo implements VideosListener {
 	public List<Video> getVideosMasVistos() {
 
 		// Obtenemos los videos del sistema, quitamos los que no han sido reproducidos
-		// y ordenamos de mayor a menor segun el num de reproducciones
+		// y ordenamos de mayor a menor segun el num de reproducciones y nos quedamos
+		// con el numero maximo de videos por defecto, en este caso 10
 
 		return catalogoVideos.getVideos().stream().filter(video -> !(video.getNumReproducciones() == 0))
 				.sorted((v1, v2) -> Integer.compare(v2.getNumReproducciones(), v1.getNumReproducciones()))
@@ -236,7 +235,10 @@ public class ControladorAppVideo implements VideosListener {
 	// -------------------------- METODOS DE ETIQUETAS --------------------------
 
 	public List<Etiqueta> getAllEtiquetas() {
-		return adaptadorEtiqueta.recuperarTodasEtiquetas();
+
+		// Devolvemos todas las etiquetas pero ordenadas alfabeticamente por el nombre
+		return adaptadorEtiqueta.recuperarTodasEtiquetas().stream().sorted(Comparator.comparing(Etiqueta::getNombre))
+				.collect(Collectors.toList());
 	}
 
 	public Etiqueta getEtiqueta(String nombre) {
@@ -245,7 +247,7 @@ public class ControladorAppVideo implements VideosListener {
 			if (etiqueta.getNombre().equals(nombre.toUpperCase()))
 				return etiqueta;
 
-		// Si la etiqueta no esta registrada en el sistema, la creamos y la registramos
+		// Si la etiqueta no esta registrada en el sistema, la creamos, la registramos
 		adaptadorEtiqueta.registrarEtiqueta(new Etiqueta(nombre));
 
 		return getEtiqueta(nombre);
@@ -253,10 +255,11 @@ public class ControladorAppVideo implements VideosListener {
 
 	public boolean addEtiquetaToVideo(Video video, Etiqueta etiqueta) {
 
-		boolean isRegistrada = video.addEtiqueta(etiqueta);
-		if (!isRegistrada)
+		// Si no se registra devolvemos false, porque ya esta registrada para ese video
+		if (!video.addEtiqueta(etiqueta))
 			return false;
 
+		// Si si se registra, modificamos el video y devolvemos true
 		adaptadorVideo.modificarVideo(video);
 		return true;
 	}
@@ -298,8 +301,8 @@ public class ControladorAppVideo implements VideosListener {
 
 			documento.add(Chunk.NEWLINE);
 
-			LinkedList<ListaReproduccion> listasReproduccion = (LinkedList<ListaReproduccion>) ControladorAppVideo
-					.getUnicaInstancia().getAllListasReproduccion();
+			ArrayList<ListaReproduccion> listasReproduccion = (ArrayList<ListaReproduccion>) getAllListasReproduccion();
+
 			if (listasReproduccion.isEmpty())
 				documento.add(new Paragraph("Este usuario no tiene ninguna Lista de Reproducción disponible."));
 			else
@@ -326,9 +329,16 @@ public class ControladorAppVideo implements VideosListener {
 		}
 	}
 
+	// -------------------- METODOS COMPONENTE CargadorVideos --------------------
+
+	// Le pasamos al componente el archivo con el XML de los videos
 	public void cargarVideos(File fileXML) {
 		cargadorVideos.cargarVideos(fileXML);
 	}
+
+	// Cuando salta el evento producido por el componente, cojemos cada uno de los
+	// videos y creamos un video de AppVideo, registrandolo en el sistema si no
+	// existe ya
 
 	@Override
 	public void nuevosVideos(EventObject arg0) {

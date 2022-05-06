@@ -92,18 +92,7 @@ public class PanelPrincipal extends JPanel {
 		Luz luz = new Luz();
 		luz.addEncendidoListener(new IEncendidoListener() {
 			public void enteradoCambioEncendido(EventObject arg0) {
-
-				JFileChooser jfc = new JFileChooser();
-				jfc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos xml (.xml)", "xml");
-				jfc.setFileFilter(filtro);
-				if (jfc.showOpenDialog(MainWindow.getUnicaInstancia()) == JFileChooser.APPROVE_OPTION) {
-
-					File fileXML = jfc.getSelectedFile();
-					ControladorAppVideo.getUnicaInstancia().cargarVideos(fileXML);
-					cambiarPanelPrincipalActual(new PanelExplorar());
-					JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(), "Archivo XML cargado correctamente.");
-				}
+				cargarXMLVideos();
 			}
 		});
 		luz.setColor(Color.YELLOW);
@@ -228,5 +217,20 @@ public class PanelPrincipal extends JPanel {
 		add(panelPrincipalActual, BorderLayout.CENTER);
 		revalidate();
 		repaint();
+	}
+
+	public void cargarXMLVideos() {
+
+		JFileChooser jfc = new JFileChooser();
+		jfc.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos xml (.xml)", "xml");
+		jfc.setFileFilter(filtro);
+		if (jfc.showOpenDialog(MainWindow.getUnicaInstancia()) == JFileChooser.APPROVE_OPTION) {
+
+			File fileXML = jfc.getSelectedFile();
+			ControladorAppVideo.getUnicaInstancia().cargarVideos(fileXML);
+			cambiarPanelPrincipalActual(new PanelExplorar());
+			JOptionPane.showMessageDialog(MainWindow.getUnicaInstancia(), "Archivo XML cargado correctamente.");
+		}
 	}
 }

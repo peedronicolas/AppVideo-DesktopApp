@@ -73,10 +73,8 @@ public class AdaptadorVideoTDS implements IAdaptadorVideoDAO {
 	public void borrarVideo(Video video) {
 		Entidad ev;
 
-		// Primero borramos las etiquetas asociadas al video
-		AdaptadorEtiquetaTDS adaptadorE = AdaptadorEtiquetaTDS.getUnicaInstancia();
-		for (Etiqueta etiqueta : video.getEtiquetas())
-			adaptadorE.borrarEtiqueta(etiqueta);
+		// No tiene sentido borrar las etiquetas de un video, podrian ser tambien de
+		// otros videos
 
 		ev = servPersistencia.recuperarEntidad(video.getCodigo());
 		servPersistencia.borrarEntidad(ev);

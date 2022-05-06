@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 
 public class PanelEditarListas extends JPanel {
@@ -69,7 +70,9 @@ public class PanelEditarListas extends JPanel {
 		btnEliminarLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Object[] options = ControladorAppVideo.getUnicaInstancia().getAllListasReproduccionNames().toArray();
+				Object[] options = ControladorAppVideo.getUnicaInstancia().getAllListasReproduccion().stream()
+						.map(lr -> lr.getNombre()).collect(Collectors.toList()).toArray();
+
 				Object nombreListaReproduccion = JOptionPane.showInputDialog(MainWindow.getUnicaInstancia(),
 						"Selecciona la Lista de Reproducción a eliminar:", "Eliminar Lista de Reproducción",
 						JOptionPane.PLAIN_MESSAGE, null, options, "");

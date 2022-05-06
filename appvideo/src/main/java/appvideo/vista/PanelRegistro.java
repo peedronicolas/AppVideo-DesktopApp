@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -243,6 +245,11 @@ public class PanelRegistro extends JPanel {
 
 		if (fNacimiento == null) {
 			showError("* El campo 'F.Nacimiento' es obligatorio.");
+			return;
+		}
+
+		if (fNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(LocalDate.now())) {
+			showError("* F.Nacimiento debe ser anterior a F.Actual.");
 			return;
 		}
 

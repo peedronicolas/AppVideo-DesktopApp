@@ -52,8 +52,7 @@ public class PanelPremium extends JPanel {
 		gbc_lblGenerarpdf.gridy = 0;
 		add(lblGenerarpdf, gbc_lblGenerarpdf);
 
-		JLabel lblText1 = new JLabel(
-				"Obten un PDF con la información más relevante sobre tus listas de reproducción.\n");
+		JLabel lblText1 = new JLabel("Obten un PDF con la información más relevante sobre tus listas de reproducción.");
 		GridBagConstraints gbc_lblText1 = new GridBagConstraints();
 		gbc_lblText1.anchor = GridBagConstraints.WEST;
 		gbc_lblText1.insets = new Insets(0, 0, 5, 5);

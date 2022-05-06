@@ -2,7 +2,7 @@ package appvideo.lanzador;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JFrame;
 
@@ -26,13 +26,9 @@ public class MainWindow extends JFrame {
 			public void run() {
 				try {
 
-					// TODO Quitar para produccion; codigo para realizar pruebas
-					// ------------------------------------------------------------------------
-					ControladorAppVideo.getUnicaInstancia().registrarusuario("Pedro", "Nicolas Gomariz",
-							new SimpleDateFormat("yyyy-MM-dd").parse("1999-09-29"), "pedro.nicolasg@um.es", "pedro",
-							"123");
-					ControladorAppVideo.getUnicaInstancia().login("pedro", "123");
-					// ------------------------------------------------------------------------
+					// Registramos al usuario administrador en el sistema
+					ControladorAppVideo.getUnicaInstancia().registrarusuario("admin", "", new Date(),
+							"admin@appvideopng.es", "admin", "admin");
 
 					videoWeb = new VideoWeb();
 					MainWindow frame = MainWindow.getUnicaInstancia();
@@ -53,8 +49,8 @@ public class MainWindow extends JFrame {
 		setBounds(100, 100, 1300, 800);
 		setMinimumSize(new Dimension(1100, 800));
 
-		// TODO Cambiar a panel login para produccion
-		showPanelPrincipal();
+		// Abrimos AppVideo mostrando el login
+		showPanelLogin();
 	}
 
 	// METODOS:

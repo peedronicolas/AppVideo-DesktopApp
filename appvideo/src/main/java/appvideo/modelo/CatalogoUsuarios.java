@@ -41,14 +41,6 @@ public class CatalogoUsuarios {
 		return new ArrayList<Usuario>(usuarios.values());
 	}
 
-	public Usuario getUsuario(int codigo) {
-		for (Usuario user : usuarios.values())
-			if (user.getCodigo() == codigo)
-				return user;
-
-		return null;
-	}
-
 	public Usuario getUsuario(String username) {
 		return usuarios.get(username);
 	}

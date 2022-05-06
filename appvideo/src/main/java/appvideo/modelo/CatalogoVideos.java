@@ -41,15 +41,6 @@ public class CatalogoVideos {
 		return new ArrayList<Video>(videos.values());
 	}
 
-	public Video getVideo(int codigo) {
-
-		for (Video v : videos.values())
-			if (v.getCodigo() == codigo)
-				return v;
-
-		return null;
-	}
-
 	public Video getVideo(String titulo) {
 		return videos.get(titulo);
 	}

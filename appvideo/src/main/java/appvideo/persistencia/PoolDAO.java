@@ -1,6 +1,6 @@
 package appvideo.persistencia;
 
-/*Esta clase implementa un pool para los adaptadores que lo necesiten*/
+/* Esta clase implementa un pool para los adaptadores que lo necesiten */
 
 import java.util.Hashtable;
 
